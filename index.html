@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rinkle Music | Mix Commission</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --border: #2a2a2a;
+    --accent: #c8a96e;
+    --accent2: #8fb3c8;
+    --text: #e8e4dc;
+    --text-muted: #888;
+    --text-dim: #555;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    position: relative;
+    padding: 80px 24px 60px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(200,169,110,0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .site-label {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.4em;
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  header h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  header h1 span { color: var(--accent); }
+  .header-sub {
+    color: var(--text-muted);
+    font-size: 13px;
+    letter-spacing: 0.15em;
+  }
+
+  /* ─── LANG SWITCHER ─── */
+  .lang-switcher {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    display: flex;
+    gap: 4px;
+    z-index: 999;
+  }
+  .lang-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-btn:hover { color: var(--text); border-color: var(--text-muted); }
+  .lang-btn.active { color: var(--accent); border-color: var(--accent); background: var(--bg); }
+
+  /* ─── NAV ─── */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    padding: 16px 24px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-eyebrow {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.3em;
+    font-size: 10px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: clamp(20px, 3vw, 28px);
+    margin-bottom: 32px;
+    letter-spacing: 0.02em;
+  }
+
+  .profile-tagline {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 32px;
+    padding: 16px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .gear-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .gear-btn {
+    border: 1px solid var(--border);
+    padding: 9px 18px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+  .gear-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ─── PROFILE ─── */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  @media (max-width: 600px) { .profile-grid { grid-template-columns: 1fr; } }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    letter-spacing: 0.1em;
+  }
+  .profile-text {
+    font-size: 14px;
+    line-height: 2;
+    color: #bbb;
+    margin-bottom: 32px;
+  }
+
+  /* ─── PROCESS ─── */
+  .process-steps {
+    display: grid;
+    gap: 0;
+    counter-reset: step;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 0;
+    position: relative;
+  }
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 31px;
+    top: 56px;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .step-num {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+    background: var(--bg);
+    z-index: 1;
+  }
+  .step-body {
+    padding: 4px 0 40px 20px;
+  }
+  .step-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+  .step-desc strong {
+    color: var(--accent2);
+    font-weight: 400;
+  }
+
+  /* ─── PRICING ─── */
+  .pricing-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn:hover { color: var(--text); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .price-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .price-card:hover { border-color: var(--accent); }
+  .price-header {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .price-name {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .price-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .price-tag span {
+    font-size: 13px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+  .price-base {
+    padding: 6px 24px;
+    font-size: 11px;
+    color: var(--text-dim);
+    background: var(--surface2);
+    letter-spacing: 0.08em;
+  }
+  .price-options {
+    padding: 16px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .option-chip {
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    border-radius: 2px;
+  }
+  .option-chip.plus { border-color: #4a4a3a; color: var(--accent); }
+  .option-chip.minus { border-color: #3a3a4a; color: var(--accent2); }
+
+  .note-box {
+    background: var(--surface2);
+    border-left: 2px solid var(--accent);
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+  /* note-box 안 항목 리스트 */
+  .note-list {
+    list-style: none;
+    display: grid;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .note-list li {
+    display: flex;
+    gap: 10px;
+    line-height: 1.7;
+  }
+  .note-list li::before {
+    content: '·';
+    color: var(--accent);
+    flex-shrink: 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .note-list li.warn::before { content: '※'; font-size: 11px; color: var(--accent2); }
+
+  /* 주의사항 리스트 */
+  .notice-list {
+    list-style: none;
+    display: grid;
+    gap: 0;
+  }
+  .notice-list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: #999;
+    line-height: 1.8;
+    align-items: start;
+  }
+  .notice-list li:last-child { border-bottom: none; }
+  .notice-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    padding-top: 2px;
+    min-width: 28px;
+  }
+  .notice-sub {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .notice-chip {
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .notice-chip.refund-before { border-color: #4a4a3a; color: var(--accent); }
+  .notice-chip.refund-after  { border-color: #3a3a4a; color: var(--accent2); }
+  .notice-chip.refund-done   { border-color: #3a2a2a; color: #a06060; }
+
+  /* ─── PORTFOLIO ─── */
+  .pf-playlist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 640px) { .pf-playlist-grid { grid-template-columns: 1fr; } }
+
+  .pf-playlist-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.25s;
+  }
+  .pf-playlist-card:hover { border-color: var(--accent); }
+  .pf-playlist-card.pf-featured {
+    grid-column: 1 / -1;
+    border-color: #3a3020;
+  }
+
+  .pf-playlist-label {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .pf-playlist-title {
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+  }
+  .pf-cat-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 3px 8px;
+    flex-shrink: 0;
+  }
+  .pf-cat-badge.blue { background: var(--accent2); }
+  .pf-cat-badge.dim { background: var(--text-dim); }
+  .pf-cat-link {
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .pf-cat-link:hover { opacity: 1; }
+
+  .pf-embed-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: #000;
+  }
+  .pf-embed-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* ─── ADDON TABLE ─── */
+  .addon-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 16px;
+  }
+  .addon-table th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    font-weight: 400;
+    border-bottom: 1px solid var(--border);
+  }
+  .addon-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .addon-table tr:last-child td { border-bottom: none; }
+  .addon-table tr:hover td { background: var(--surface); }
+  .addon-price {
+    color: var(--accent);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  /* ─── NOTICES ─── */
+  .notice-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+  .notice-list li {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: #999;
+    line-height: 1.8;
+  }
+  .notice-list li::before {
+    content: '—';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+    transition: all 0.2s;
+  }
+  .contact-card:hover { border-color: var(--accent); background: var(--surface2); }
+  .contact-icon {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .contact-type {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .contact-val {
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  .portfolio-link {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 14px 28px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    transition: all 0.2s;
+  }
+  .portfolio-link:hover { background: var(--accent); color: var(--bg); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<div class="lang-switcher">
+  <button class="lang-btn active" onclick="setLang('ko')">KO</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('ja')">JA</button>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="site-label"><span data-i18n="header_label">Freelance Sound Engineer</span></div>
+  <h1>Rinkle<span>music</span></h1>
+  <p class="header-sub" data-i18n="header_sub">MIX COMMISSION</p>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#about" data-i18n="nav_about">소개</a>
+  <a href="#process" data-i18n="nav_process">진행 순서</a>
+  <a href="#portfolio" data-i18n="nav_portfolio">포트폴리오</a>
+  <a href="#pricing" data-i18n="nav_pricing">가격표</a>
+  <a href="#addon" data-i18n="nav_addon">추가 옵션</a>
+  <a href="#notice" data-i18n="nav_notice">주의사항</a>
+  <a href="#contact" data-i18n="nav_contact">연락처</a>
+</nav>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-eyebrow">ABOUT</div>
+    <div class="section-title" data-i18n="title_about">자기소개</div>
+    <p class="profile-text">
+      <span data-i18n="profile_text_1">사운드 엔지니어 링클입니다.</span><br>
+      <span data-i18n="profile_text_2">음향을 전공하였으며 (2023년 학사 졸업), 이후에도 꾸준히 외주 작업과 협업에 참여하며 실무 경험을 쌓아오고 있습니다.</span><br><br>
+      <span data-i18n="profile_text_3">홈레코딩 소스를 오랜 기간 다루며 축적한 데이터, 스튜디오 레코딩 및 라이브 현장 경험을 바탕으로 커버곡부터 발매 음원, 버추얼 아티스트 온라인 송출, 영화관·무대 납품 음원까지 폭넓게 작업해 왔습니다.</span><br><br>
+      <span data-i18n="profile_text_4">음악을 사랑하는 만큼 어떤 작업이든 진심으로 임하며, 아티스트가 만족할 때까지 끝까지 함께하겠습니다.</span>
+    </p>
+    <div class="profile-tagline"><span data-i18n="tagline">좋은 소리는 더 좋게, 단점은 들리지 않도록.</span></div>
+
+    <div class="gear-links">
+      <a class="gear-btn" href="https://blog.naver.com/rinklemusic/223387198928" target="_blank"><span data-i18n="gear_hw">하드웨어 목록</span> →</a>
+      <a class="gear-btn" href="https://blog.naver.com/rinklemusic/223387240851" target="_blank"><span data-i18n="gear_sw">소프트웨어 목록</span> →</a>
+    </div>
+    <div class="profile-grid">
+      <div class="stat-card">
+        <div class="stat-num">6+</div>
+        <div class="stat-label" data-i18n="stat_years">YEARS OF EXPERIENCE</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">500+</div>
+        <div class="stat-label" data-i18n="stat_tracks">PUBLIC PORTFOLIO TRACKS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">700+</div>
+        <div class="stat-label" data-i18n="stat_total">TOTAL WORKS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-label" data-i18n="stat_deadlines">MISSED DEADLINES</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="eyebrow_process">WORKFLOW</div>
+    <div class="section-title" data-i18n="title_process">진행 순서</div>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title" data-i18n="step1_title">문의 및 파일 전송</div>
+          <div class="step-desc">
+            <span data-i18n="step1_d1">하단의 연락처(이메일 / 카카오 오픈채팅 / 디스코드)로 문의 후 파일을 보내주세요.</span><br>
+            <strong data-i18n="step1_d2">MR / INST는 스테레오, 녹음본은 WAV / 48,000Hz / 24bit / Mono를 권장합니다.</strong><br>
+            <span data-i18n="step1_d3">녹음본 포맷이 다르더라도 작업은 가능하지만, MR / INST는 반드시 스테레오로 전송해 주세요.</span><br>
+            <span data-i18n="step1_d4">레퍼런스 음원이 있다면 함께 보내주시면 더욱 원하는 방향에 맞게 작업할 수 있습니다.</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title" data-i18n="step2_title">단가 및 일정 조율 / 입금</div>
+          <div class="step-desc">
+            <span data-i18n="step2_d1">작업 기간은 솔로·듀엣 기준 <strong>3일 ~ 최대 2주</strong>, 합창의 경우 <strong>1주 ~ 3주</strong>입니다.</span><br>
+            <span data-i18n="step2_d2">원하는 납기일이 있을 경우 미리 말씀해 주세요.</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title" data-i18n="step3_title">작업 진행</div>
+          <div class="step-desc">
+            <strong data-i18n="step3_d1">에디팅 → 믹싱 → 마스터링 순으로 진행합니다.</strong><br>
+            <span data-i18n="step3_d2">중간 단계 컨펌을 원하실 경우 작업 시작 전에 미리 요청해 주세요.</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <div class="step-title" data-i18n="step4_title">피드백 및 납품</div>
+          <div class="step-desc">
+            <span data-i18n="step4_d1">믹스 피드백은 만족하실 때까지 <strong>추가 비용 없이</strong> 진행합니다.</span><br>
+            <span data-i18n="step4_d2">피드백은 한 번에 취합하여 보내주실수록 빠르게 반영됩니다.</span><br>
+            <span data-i18n="step4_d3">최종 결과물은 <strong>48kHz / 24bit / WAV 스테레오</strong>로 납품드립니다.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="eyebrow_portfolio">PORTFOLIO</div>
+    <div class="section-title" data-i18n="title_portfolio">포트폴리오</div>
+
+    <div class="pf-playlist-grid">
+
+      <!-- 보컬 믹스 — featured 전체 폭 -->
+      <div class="pf-playlist-card pf-featured">
+        <div class="pf-playlist-label">
+          <span class="pf-cat-badge">VOCAL MIX</span>
+          <span class="pf-playlist-title"><span data-i18n="pf_vocal">보컬 믹스</span> <small style="color:var(--text-dim);font-weight:300;" data-i18n="pf_vocal_count">500곡+</small></span>
+          <a class="pf-cat-link" href="https://youtube.com/playlist?list=PLYeT32j340m5fDgCDuXvoKl2ovJ5pu6sD" target="_blank">전체 재생목록 →</a>
+        </div>
+        <div class="pf-embed-wrap">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLYeT32j340m5fDgCDuXvoKl2ovJ5pu6sD" title="보컬 믹스 포트폴리오" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+            onerror="this.parentElement.innerHTML=fallbackHTML('https://youtube.com/playlist?list=PLYeT32j340m5fDgCDuXvoKl2ovJ5pu6sD')"></iframe>
+        </div>
+      </div>
+
+      <!-- 2열 그리드: 나머지 4개 -->
+      <div class="pf-playlist-card">
+        <div class="pf-playlist-label">
+          <span class="pf-cat-badge blue">MULTITRACK</span>
+          <span class="pf-playlist-title"><span data-i18n="pf_multi">멀티트랙 믹스</span></span>
+          <a class="pf-cat-link" href="https://youtube.com/playlist?list=PLYeT32j340m7VoD8PgI84myzdKTyyS6Vn" target="_blank">전체 재생목록 →</a>
+        </div>
+        <div class="pf-embed-wrap" id="pf-multi">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLYeT32j340m7VoD8PgI84myzdKTyyS6Vn" title="멀티트랙 믹스 포트폴리오" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="pf-playlist-card">
+        <div class="pf-playlist-label">
+          <span class="pf-cat-badge" style="background:var(--accent2);">STUDIO</span>
+          <span class="pf-playlist-title"><span data-i18n="pf_studio">스튜디오 레코딩</span></span>
+          <a class="pf-cat-link" href="https://youtube.com/playlist?list=PLYeT32j340m67ZGFssaBX7ULpdAIECePn" target="_blank">전체 재생목록 →</a>
+        </div>
+        <div class="pf-embed-wrap">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLYeT32j340m67ZGFssaBX7ULpdAIECePn" title="스튜디오 레코딩 포트폴리오" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="pf-playlist-card">
+        <div class="pf-playlist-label">
+          <span class="pf-cat-badge dim">EDITING</span>
+          <span class="pf-playlist-title"><span data-i18n="pf_edit">보컬 에디팅</span></span>
+          <a class="pf-cat-link" href="https://youtube.com/playlist?list=PLYeT32j340m4qbZJM9JPq-0MY4nj7JDz9" target="_blank">전체 재생목록 →</a>
+        </div>
+        <div class="pf-embed-wrap">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLYeT32j340m4qbZJM9JPq-0MY4nj7JDz9" title="보컬 에디팅 포트폴리오" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="pf-playlist-card">
+        <div class="pf-playlist-label">
+          <span class="pf-cat-badge dim">MASTERING</span>
+          <span class="pf-playlist-title"><span data-i18n="pf_master">마스터링</span></span>
+          <a class="pf-cat-link" href="https://youtube.com/playlist?list=PLYeT32j340m7HWR8ahUafiImxmFasPdHx" target="_blank">전체 재생목록 →</a>
+        </div>
+        <div class="pf-embed-wrap">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLYeT32j340m7HWR8ahUafiImxmFasPdHx" title="마스터링 포트폴리오" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="eyebrow_pricing">PRICING</div>
+    <div class="section-title" data-i18n="title_pricing">가격표</div>
+
+    <div class="pricing-tabs">
+      <button class="tab-btn active" onclick="switchTab(event,'vocal')"><span data-i18n="tab_vocal">보컬 믹스</span></button>
+      <button class="tab-btn" onclick="switchTab(event,'multi')"><span data-i18n="tab_multi">멀티트랙 믹스</span></button>
+      <button class="tab-btn" onclick="switchTab(event,'edit')"><span data-i18n="tab_edit">보컬 에디팅</span></button>
+      <button class="tab-btn" onclick="switchTab(event,'master')"><span data-i18n="tab_master">마스터링</span></button>
+    </div>
+
+    <!-- VOCAL MIX -->
+    <div class="tab-content active" id="tab-vocal">
+      <div class="note-box">
+        <ul class="note-list">
+          <li data-i18n="vocal_note1">에디팅 (음정·박자 보정 / 노이즈 제거) + 믹싱 + 마스터링이 모두 포함된 금액입니다.</li>
+          <li data-i18n="vocal_note2">트랙 수 기준: 원음 1·2트랙이 겹침 없이 번갈아 녹음된 경우 1트랙으로 취급합니다. 짧은 효과음 등 단순 파트는 별도 카운트하지 않습니다.</li>
+          <li class="warn" data-i18n="vocal_note3">개인 방송 콘서트 / 영화관 상영 / 오리지널 곡 등 상업적 용도로 사용되는 경우 별도 문의 바랍니다.</li>
+        </ul>
+      </div>
+
+      <div class="price-card">
+        <div class="price-header">
+          <div>
+            <div class="price-name" data-i18n="price_solo">A. 솔로곡 보컬 믹싱</div>
+            <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="sub_solo">INST 제외 3트랙, 4분 기준</div>
+          </div>
+          <div class="price-tag" data-i18n="ptag_solo">50,000<span>원</span></div>
+        </div>
+        <div class="price-options">
+          <span class="option-chip plus" data-i18n="chip_solo_len">길이 +30초당 +5,000원</span>
+          <span class="option-chip plus" data-i18n="chip_solo_trk">트랙 추가 시 +4,000원/트랙</span>
+          <span class="option-chip minus" data-i18n="chip_solo_noedit">에디팅 제외 시 −20,000원</span>
+          <span class="option-chip minus" data-i18n="chip_solo_1st">1절 버전 30,000원</span>
+          <span class="option-chip minus" data-i18n="chip_solo_hl">하이라이트 버전 (Shorts) 20,000원</span>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <div class="price-header">
+          <div>
+            <div class="price-name" data-i18n="price_duet">B. 듀엣곡 보컬 믹싱</div>
+            <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="sub_duet">INST 제외 인당 3트랙, 4분 기준</div>
+          </div>
+          <div class="price-tag" data-i18n="ptag_duet">100,000<span>원</span></div>
+        </div>
+        <div class="price-options">
+          <span class="option-chip plus" data-i18n="chip_duet_len">길이 +30초당 / 인당 +5,000원</span>
+          <span class="option-chip plus" data-i18n="chip_duet_trk">트랙 추가 시 +4,000원/트랙</span>
+          <span class="option-chip minus" data-i18n="chip_duet_noedit">에디팅 제외 시 / 인당 −20,000원</span>
+          <span class="option-chip minus" data-i18n="chip_duet_1st">1절 버전 60,000원</span>
+          <span class="option-chip minus" data-i18n="chip_duet_hl">하이라이트 버전 (Shorts) 40,000원</span>
+        </div>
+      </div>
+
+      <div class="price-card">
+        <div class="price-header">
+          <div>
+            <div class="price-name" data-i18n="price_choir">C. 합창곡 보컬 믹싱</div>
+            <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="sub_choir">인당 3트랙, 4분 기준 / 파트별 트랙 분리 시 작업이 더욱 원활합니다</div>
+          </div>
+          <div class="price-tag" data-i18n="ptag_choir">50,000<span>원/인</span></div>
+        </div>
+        <div class="price-options">
+          <span class="option-chip plus" data-i18n="chip_choir_len">길이 +30초당 / 인당 +5,000원</span>
+          <span class="option-chip plus" data-i18n="chip_choir_trk">트랙 추가 시 +4,000원/트랙</span>
+          <span class="option-chip minus" data-i18n="chip_choir_noedit">에디팅 제외 시 / 인당 −20,000원</span>
+          <span class="option-chip" style="color:#aaa;" data-i18n="chip_choir_disc">인원수·곡 길이·튜닝 여부에 따라 추가 할인 가능 (문의)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MULTI -->
+    <div class="tab-content" id="tab-multi">
+      <div class="note-box">
+        <ul class="note-list">
+          <li data-i18n="multi_note1">보컬 에디팅 및 믹싱, 마스터링이 모두 포함된 금액입니다.</li>
+          <li data-i18n="multi_note2">곡 구성에 따라 금액은 유연하게 조율 가능합니다. 아래 금액은 참고 기준입니다.</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <div>
+            <div class="price-name" data-i18n="price_multi_np">비상업 멀티트랙 믹스</div>
+            <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="sub_multi_np">~4분, ~악기 20트랙 기준</div>
+          </div>
+          <div class="price-tag" data-i18n="ptag_multi_np">150,000<span>원~</span></div>
+        </div>
+        <div class="price-options">
+          <span class="option-chip plus" data-i18n="chip_multi_np_trk">트랙 추가금 별도 문의</span>
+          <span class="option-chip plus" data-i18n="chip_multi_np_voc">보컬 2인부터 / 인당 +40,000원</span>
+        </div>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <div>
+            <div class="price-name" data-i18n="price_multi_com">상업 멀티트랙 믹스</div>
+            <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="sub_multi_com">수익창출, 앨범 발매 등 / ~4분, ~20트랙 기준</div>
+          </div>
+          <div class="price-tag" data-i18n="ptag_multi_com">300,000<span>원~</span></div>
+        </div>
+        <div class="price-options">
+          <span class="option-chip plus" data-i18n="chip_multi_com_trk">트랙 추가금 별도 문의</span>
+          <span class="option-chip plus" data-i18n="chip_multi_com_voc">보컬 2인부터 / 인당 +70,000원</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT ONLY -->
+    <div class="tab-content" id="tab-edit">
+      <div class="note-box">
+        <ul class="note-list">
+          <li data-i18n="edit_note1">음정·박자 보정 및 필요 시 노이즈 간단 복원(Repair)을 포함합니다.</li>
+          <li data-i18n="edit_note2">다양한 보컬 소스 작업을 통해 축적된 노하우를 바탕으로, 소스 특성에 맞는 플러그인을 선별하여 정교하게 처리합니다.</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <div>
+            <div class="price-name" data-i18n="price_edit">보컬 에디팅 단독</div>
+            <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="sub_edit">원음 1트랙 기준 (비상업)</div>
+          </div>
+          <div class="price-tag" data-i18n="ptag_edit">20,000<span>원~</span></div>
+        </div>
+        <div class="price-options">
+          <span class="option-chip" data-i18n="chip_edit_add">추가 트랙(화음, 코러스)은 분량에 따라 협의</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MASTERING ONLY -->
+    <div class="tab-content" id="tab-master">
+      <div class="note-box">
+        <ul class="note-list">
+          <li data-i18n="master_note1">전체적인 음압을 표준 수준으로 맞추고 세밀하게 다듬습니다.</li>
+          <li data-i18n="master_note2">원하는 느낌이나 레퍼런스가 있으면 적극 반영하여 작업합니다.</li>
+          <li data-i18n="master_note3">여러 곡을 함께 의뢰하실 경우, 전체 트랙 간 밸런스·질감·음압을 흐름에 맞게 통일하여 처리합니다.</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <div>
+            <div class="price-name" data-i18n="price_2trk">투트랙 마스터링 (2TRK)</div>
+            <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="sub_2trk">믹싱이 완료된 스테레오 음원 기준</div>
+          </div>
+          <div class="price-tag" data-i18n="ptag_2trk">30,000<span>원/곡</span></div>
+        </div>
+        <div class="price-options">
+          <span class="option-chip plus" data-i18n="chip_2trk_com">상업 60,000원/곡</span>
+        </div>
+      </div>
+      <div class="price-card">
+        <div class="price-header">
+          <div>
+            <div class="price-name" data-i18n="price_stem">스템 마스터링 (Stem)</div>
+            <div style="font-size:11px;color:var(--text-dim);margin-top:4px;" data-i18n="sub_stem">믹스된 소스별 스템 파일 기준 (Drum / Bass / Guitar / Piano / Synth / Vocal / Etc...)</div>
+          </div>
+          <div class="price-tag" data-i18n="ptag_stem">100,000<span>원~/곡</span></div>
+        </div>
+        <div class="price-options">
+          <span class="option-chip" data-i18n="chip_stem_desc">투트랙 마스터링보다 각 파트별 밸런스와 사운드를 더 세밀하게 조정할 수 있습니다 (문의)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADDON -->
+<section id="addon">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="eyebrow_addon">ADD-ON</div>
+    <div class="section-title" data-i18n="title_addon">추가 옵션</div>
+    <table class="addon-table">
+      <thead>
+        <tr>
+          <th data-i18n="addon_th1">옵션</th>
+          <th data-i18n="addon_th2">추가 금액</th>
+          <th data-i18n="addon_th3">비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-i18n="addon_harmony">인공 화음 제작</td>
+          <td class="addon-price" data-i18n="addon_harmony_price">+10,000원 / 트랙</td>
+          <td style="font-size:12px;color:var(--text-muted);">—</td>
+        </tr>
+        <tr>
+          <td data-i18n="addon_rush1">빠른 마감 — 1주일 이내</td>
+          <td class="addon-price" data-i18n="addon_rush1_price">인당 +20,000원</td>
+          <td style="font-size:12px;color:var(--text-muted);" data-i18n="addon_rush1_note">합창 작업도 가능 (사전 협의)</td>
+        </tr>
+        <tr>
+          <td data-i18n="addon_rush2">빠른 마감 — 3일 이내</td>
+          <td class="addon-price" data-i18n="addon_rush2_price">인당 +30,000원</td>
+          <td style="font-size:12px;color:var(--text-muted);" data-i18n="addon_rush2_note">규모에 따라 합창 가능 (사전 협의)</td>
+        </tr>
+        <tr>
+          <td data-i18n="addon_rush3">당일 마감 (24시간 이내)</td>
+          <td class="addon-price" data-i18n="addon_rush3_price">인당 +50,000원</td>
+          <td style="font-size:12px;color:var(--text-muted);" data-i18n="addon_rush3_note">진행 가능 여부 사전 확인 필수</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- NOTICE -->
+<section id="notice">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="eyebrow_notice">NOTICE</div>
+    <div class="section-title" data-i18n="title_notice">주의사항</div>
+    <ul class="notice-list">
+      <li>
+        <span class="notice-num">01</span>
+        <span data-i18n="notice1">작업 기간은 솔로·듀엣 기준 <strong style="color:var(--text);font-weight:500;">3일 ~ 최대 2주</strong>, 합창 기준 <strong style="color:var(--text);font-weight:500;">1주 ~ 최대 3주</strong>이며, 대부분의 경우 명시된 기간보다 일찍 납품드립니다. 작업이 어려운 상황이 발생할 경우 사전에 안내드리며, 이 경우 전액 환불 처리됩니다.</span>
+      </li>
+      <li>
+        <span class="notice-num">02</span>
+        <span data-i18n="notice2">위 작업 기간은 피드백 기간을 제외한 기준으로, 파일 전송 및 입금일로부터 산정됩니다. 피드백 진행에 따른 추가 소요 시간은 포함되지 않습니다.</span>
+      </li>
+      <li>
+        <span class="notice-num">03</span>
+        <span data-i18n="notice3">녹음 소스의 품질에 따라 결과물이 포트폴리오 샘플과 차이가 있을 수 있습니다.</span>
+      </li>
+      <li>
+        <span class="notice-num">04</span>
+        <div>
+          <div style="margin-bottom:8px;" data-i18n="notice4_title">환불 정책</div>
+          <div class="notice-sub">
+            <span class="notice-chip refund-before" data-i18n="refund_before">작업 시작 전 — 100% 환불</span>
+            <span class="notice-chip refund-after" data-i18n="refund_after">작업 시작 후 — 60% 환불</span>
+            <span class="notice-chip refund-done" data-i18n="refund_done">작업 완료 후 — 환불 불가</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <span class="notice-num">05</span>
+        <span data-i18n="notice5">빠른 마감 및 당일 마감은 별도 신청이 필요하며, 진행 가능 여부를 먼저 확인해 주시기 바랍니다.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="eyebrow_contact">CONTACT</div>
+    <div class="section-title" data-i18n="title_contact">연락처</div>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:Rinklemusic@naver.com">
+        <div class="contact-icon">✉</div>
+        <div class="contact-type">EMAIL</div>
+        <div class="contact-val">Rinklemusic@naver.com</div>
+      </a>
+      <a class="contact-card" href="https://twitter.com/Rinklemusic_Mix" target="_blank">
+        <div class="contact-icon">𝕏</div>
+        <div class="contact-type">TWITTER / X</div>
+        <div class="contact-val">@Rinklemusic_Mix</div>
+      </a>
+      <a class="contact-card" href="https://discord.gg/rinklemusic" target="_blank">
+        <div class="contact-icon">🎮</div>
+        <div class="contact-type">DISCORD</div>
+        <div class="contact-val">rinklemusic</div>
+      </a>
+      <a class="contact-card" href="https://open.kakao.com/me/rinklemusic_mix" target="_blank">
+        <div class="contact-icon">💬</div>
+        <div class="contact-type">KAKAO OPENCHAT</div>
+        <div class="contact-val">rinklemusic_mix</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2024–2025 Rinklemusic | Freelance Sound Engineer
+</footer>
+
+<script>
+  /* ── 탭 전환 ── */
+  function switchTab(e, id) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    e.target.classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+
+  /* ── 임베드 폴백 ── */
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.pf-embed-wrap').forEach(function (wrap) {
+      var card = wrap.closest('.pf-playlist-card');
+      var link = card ? card.querySelector('.pf-cat-link') : null;
+      var url = link ? link.href : '#';
+      var iframe = wrap.querySelector('iframe');
+      if (!iframe) return;
+      var timer = setTimeout(function () {
+        wrap.style.paddingBottom = '0';
+        wrap.innerHTML =
+          '<a href="' + url + '" target="_blank" style="' +
+          'display:flex;align-items:center;justify-content:center;gap:10px;' +
+          'padding:36px 20px;background:var(--surface2);color:var(--accent);' +
+          'text-decoration:none;font-size:13px;letter-spacing:0.12em;">' +
+          '▶&nbsp;YouTube에서 재생목록 열기 →</a>';
+      }, 8000);
+      iframe.addEventListener('load', function () { clearTimeout(timer); });
+    });
+  });
+
+  /* ── 다국어 번역 데이터 ── */
+  const i18n = {
+    ko: {
+      header_label:'Freelance Sound Engineer', header_sub:'MIX COMMISSION',
+      nav_about:'소개', nav_process:'진행 순서', nav_portfolio:'포트폴리오',
+      nav_pricing:'가격표', nav_addon:'추가 옵션', nav_notice:'주의사항', nav_contact:'연락처',
+      eyebrow_about:'ABOUT', title_about:'자기소개',
+      eyebrow_process:'WORKFLOW', title_process:'진행 순서',
+      eyebrow_portfolio:'PORTFOLIO', title_portfolio:'포트폴리오',
+      eyebrow_pricing:'PRICING', title_pricing:'가격표',
+      eyebrow_addon:'ADD-ON', title_addon:'추가 옵션',
+      eyebrow_notice:'NOTICE', title_notice:'주의사항',
+      eyebrow_contact:'CONTACT', title_contact:'연락처',
+      tagline:'좋은 소리는 더 좋게, 단점은 들리지 않도록.',
+      gear_hw:'하드웨어 목록', gear_sw:'소프트웨어 목록',
+      profile_text_1:'사운드 엔지니어 링클입니다.',
+      profile_text_2:'음향을 전공하였으며 (2023년 학사 졸업), 이후에도 꾸준히 외주 작업과 협업에 참여하며 실무 경험을 쌓아오고 있습니다.',
+      profile_text_3:'홈레코딩 소스를 오랜 기간 다루며 축적한 데이터, 스튜디오 레코딩 및 라이브 현장 경험을 바탕으로 커버곡부터 발매 음원, 버추얼 아티스트 온라인 송출, 영화관·무대 납품 음원까지 폭넓게 작업해 왔습니다.',
+      profile_text_4:'음악을 사랑하는 만큼 어떤 작업이든 진심으로 임하며, 아티스트가 만족할 때까지 끝까지 함께하겠습니다.',
+      stat_years:'YEARS OF EXPERIENCE', stat_tracks:'PUBLIC PORTFOLIO TRACKS',
+      stat_total:'TOTAL WORKS', stat_deadlines:'MISSED DEADLINES',
+      step1_title:'문의 및 파일 전송', step2_title:'단가 및 일정 조율 / 입금',
+      step3_title:'작업 진행', step4_title:'피드백 및 납품',
+      step1_d2:'MR / INST는 스테레오, 녹음본은 WAV / 48,000Hz / 24bit / Mono를 권장합니다.',
+      step1_d3:'녹음본 포맷이 다르더라도 작업은 가능하지만, MR / INST는 반드시 스테레오로 전송해 주세요.',
+      step1_d4:'레퍼런스 음원이 있다면 함께 보내주시면 더욱 원하는 방향에 맞게 작업할 수 있습니다.',
+      step2_d1:'작업 기간은 솔로·듀엣 기준 <strong>3일 ~ 최대 2주</strong>, 합창의 경우 <strong>1주 ~ 3주</strong>입니다.',
+      step2_d2:'원하는 납기일이 있을 경우 미리 말씀해 주세요.',
+      step3_d1:'에디팅 → 믹싱 → 마스터링 순으로 진행합니다.',
+      step3_d2:'중간 단계 컨펌을 원하실 경우 작업 시작 전에 미리 요청해 주세요.',
+      step4_d1:'믹스 피드백은 만족하실 때까지 <strong>추가 비용 없이</strong> 진행합니다.',
+      step4_d2:'피드백은 한 번에 취합하여 보내주실수록 빠르게 반영됩니다.',
+      step4_d3:'최종 결과물은 <strong>48kHz / 24bit / WAV 스테레오</strong>로 납품드립니다.',
+      pf_vocal:'보컬 믹스', pf_multi:'멀티트랙 믹스', pf_studio:'스튜디오 레코딩',
+      pf_edit:'보컬 에디팅', pf_master:'마스터링',
+      tab_vocal:'보컬 믹스', tab_multi:'멀티트랙 믹스', tab_edit:'보컬 에디팅', tab_master:'마스터링',
+      vocal_note1:'에디팅 (음정·박자 보정 / 노이즈 제거) + 믹싱 + 마스터링이 모두 포함된 금액입니다.',
+      vocal_note2:'트랙 수 기준: 원음 1·2트랙이 겹침 없이 번갈아 녹음된 경우 1트랙으로 취급합니다. 짧은 효과음 등 단순 파트는 별도 카운트하지 않습니다.',
+      vocal_note3:'개인 방송 콘서트 / 영화관 상영 / 오리지널 곡 등 상업적 용도로 사용되는 경우 별도 문의 바랍니다.',
+      price_solo:'A. 솔로곡 보컬 믹싱', price_duet:'B. 듀엣곡 보컬 믹싱', price_choir:'C. 합창곡 보컬 믹싱',
+      price_multi_np:'비상업 멀티트랙 믹스', price_multi_com:'상업 멀티트랙 믹스',
+      price_edit:'보컬 에디팅 단독', price_2trk:'투트랙 마스터링 (2TRK)', price_stem:'스템 마스터링 (Stem)',
+      multi_note1:'보컬 에디팅 및 믹싱, 마스터링이 모두 포함된 금액입니다.',
+      multi_note2:'곡 구성에 따라 금액은 유연하게 조율 가능합니다. 아래 금액은 참고 기준입니다.',
+      edit_note1:'음정·박자 보정 및 필요 시 노이즈 간단 복원(Repair)을 포함합니다.',
+      edit_note2:'다양한 보컬 소스 작업을 통해 축적된 노하우를 바탕으로, 소스 특성에 맞는 플러그인을 선별하여 정교하게 처리합니다.',
+      master_note1:'전체적인 음압을 표준 수준으로 맞추고 세밀하게 다듬습니다.',
+      master_note2:'원하는 느낌이나 레퍼런스가 있으면 적극 반영하여 작업합니다.',
+      master_note3:'여러 곡을 함께 의뢰하실 경우, 전체 트랙 간 밸런스·질감·음압을 흐름에 맞게 통일하여 처리합니다.',
+      addon_th1:'옵션', addon_th2:'추가 금액', addon_th3:'비고',
+      addon_harmony:'인공 화음 제작',
+      addon_rush1:'빠른 마감 — 1주일 이내', addon_rush2:'빠른 마감 — 3일 이내', addon_rush3:'당일 마감 (24시간 이내)',
+      notice1:'작업 기간은 솔로·듀엣 기준 <strong>3일 ~ 최대 2주</strong>, 합창 기준 <strong>1주 ~ 최대 3주</strong>이며, 대부분의 경우 명시된 기간보다 일찍 납품드립니다. 작업이 어려운 상황이 발생할 경우 사전에 안내드리며, 이 경우 전액 환불 처리됩니다.',
+      notice2:'위 작업 기간은 피드백 기간을 제외한 기준으로, 파일 전송 및 입금일로부터 산정됩니다. 피드백 진행에 따른 추가 소요 시간은 포함되지 않습니다.',
+      notice3:'녹음 소스의 품질에 따라 결과물이 포트폴리오 샘플과 차이가 있을 수 있습니다.',
+      notice4_title:'환불 정책',
+      refund_before:'작업 시작 전 — 100% 환불', refund_after:'작업 시작 후 — 60% 환불', refund_done:'작업 완료 후 — 환불 불가',
+      notice5:'빠른 마감 및 당일 마감은 별도 신청이 필요하며, 진행 가능 여부를 먼저 확인해 주시기 바랍니다.',
+      // 가격 (KRW)
+      ptag_solo:'50,000<span>원</span>', ptag_duet:'100,000<span>원</span>', ptag_choir:'50,000<span>원/인</span>',
+      ptag_multi_np:'150,000<span>원~</span>', ptag_multi_com:'300,000<span>원~</span>',
+      ptag_edit:'20,000<span>원~</span>', ptag_2trk:'30,000<span>원/곡</span>', ptag_stem:'100,000<span>원~/곡</span>',
+      chip_solo_len:'+30초당 +5,000원', chip_solo_trk:'트랙 추가 시 +4,000원/트랙',
+      chip_solo_noedit:'에디팅 제외 시 −20,000원', chip_solo_1st:'1절 버전 30,000원', chip_solo_hl:'하이라이트 버전 (Shorts) 20,000원',
+      chip_duet_len:'+30초당 / 인당 +5,000원', chip_duet_trk:'트랙 추가 시 +4,000원/트랙',
+      chip_duet_noedit:'에디팅 제외 시 / 인당 −20,000원', chip_duet_1st:'1절 버전 60,000원', chip_duet_hl:'하이라이트 버전 (Shorts) 40,000원',
+      chip_choir_len:'+30초당 / 인당 +5,000원', chip_choir_trk:'트랙 추가 시 +4,000원/트랙',
+      chip_choir_noedit:'에디팅 제외 시 / 인당 −20,000원', chip_choir_disc:'인원수·곡 길이·튜닝 여부에 따라 추가 할인 가능 (문의)',
+      chip_multi_np_trk:'트랙 추가금 별도 문의', chip_multi_np_voc:'보컬 2인부터 / 인당 +40,000원',
+      chip_multi_com_trk:'트랙 추가금 별도 문의', chip_multi_com_voc:'보컬 2인부터 / 인당 +70,000원',
+      chip_edit_add:'추가 트랙(화음, 코러스)은 분량에 따라 협의',
+      chip_2trk_com:'상업 60,000원/곡',
+      chip_stem_desc:'투트랙 마스터링보다 각 파트별 밸런스와 사운드를 더 세밀하게 조정할 수 있습니다 (문의)',
+      addon_harmony_price:'+10,000원 / 트랙',
+      addon_rush1_price:'인당 +20,000원', addon_rush2_price:'인당 +30,000원', addon_rush3_price:'인당 +50,000원',
+      addon_rush1_note:'합창 작업도 가능 (사전 협의)', addon_rush2_note:'규모에 따라 합창 가능 (사전 협의)',
+      addon_rush3_note:'진행 가능 여부 사전 확인 필수',
+      // 가격 카드 서브 레이블
+      pf_vocal_count:'500곡+',
+      sub_solo:'INST 제외 3트랙, 4분 기준',
+      sub_duet:'INST 제외 인당 3트랙, 4분 기준',
+      sub_choir:'인당 3트랙, 4분 기준 / 파트별 트랙 분리 시 작업이 더욱 원활합니다',
+      sub_multi_np:'~4분, ~악기 20트랙 기준',
+      sub_multi_com:'수익창출, 앨범 발매 등 / ~4분, ~20트랙 기준',
+      sub_edit:'원음 1트랙 기준 (비상업)',
+      sub_2trk:'믹싱이 완료된 스테레오 음원 기준',
+      sub_stem:'믹스된 소스별 스템 파일 기준 (Drum / Bass / Guitar / Piano / Synth / Vocal / Etc...)',
+      // 진행순서 01 수정
+      step1_d1:'하단의 연락처(이메일 / 카카오 오픈채팅 / 디스코드)로 문의 후 파일을 보내주세요.',
+    },
+
+    en: {
+      header_label:'Freelance Sound Engineer', header_sub:'MIX COMMISSION',
+      nav_about:'About', nav_process:'Workflow', nav_portfolio:'Portfolio',
+      nav_pricing:'Pricing', nav_addon:'Add-ons', nav_notice:'Notice', nav_contact:'Contact',
+      eyebrow_about:'ABOUT', title_about:'About',
+      eyebrow_process:'WORKFLOW', title_process:'Workflow',
+      eyebrow_portfolio:'PORTFOLIO', title_portfolio:'Portfolio',
+      eyebrow_pricing:'PRICING', title_pricing:'Pricing',
+      eyebrow_addon:'ADD-ON', title_addon:'Add-on Options',
+      eyebrow_notice:'NOTICE', title_notice:'Notice',
+      eyebrow_contact:'CONTACT', title_contact:'Contact',
+      tagline:'Making good sounds better — hiding every flaw.',
+      gear_hw:'Hardware List', gear_sw:'Software List',
+      profile_text_1:'I\'m Rinkle, a freelance sound engineer.',
+      profile_text_2:'I majored in audio engineering (B.A., 2023) and have continued building hands-on experience through ongoing freelance and collaborative projects.',
+      profile_text_3:'Drawing from years of home recording, studio sessions, and live sound experience, I have worked across a wide range of projects — from cover songs and commercial releases to virtual artist live streams and theatrical audio.',
+      profile_text_4:'I approach every project with genuine passion for music, and I\'m committed to working alongside each artist until they\'re fully satisfied.',
+      stat_years:'YEARS OF EXPERIENCE', stat_tracks:'PUBLIC PORTFOLIO TRACKS',
+      stat_total:'TOTAL WORKS', stat_deadlines:'MISSED DEADLINES',
+      step1_title:'Inquiry & File Submission', step2_title:'Quote & Scheduling / Payment',
+      step3_title:'Production', step4_title:'Feedback & Delivery',
+      step1_d2:'MR / INST: stereo. Vocal recording: WAV / 48,000Hz / 24bit / Mono recommended.',
+      step1_d3:'Other vocal formats are accepted, but MR / INST must be sent in stereo.',
+      step1_d4:'If you have a reference track, feel free to include it — it helps align with your vision.',
+      step2_d1:'Turnaround: <strong>3 days – 2 weeks</strong> for solo/duet, <strong>1–3 weeks</strong> for choir.',
+      step2_d2:'If you have a specific deadline, please let us know in advance.',
+      step3_d1:'Production proceeds in order: <strong>Editing → Mixing → Mastering</strong>.',
+      step3_d2:'If you\'d like to approve an intermediate stage, please request it before we begin.',
+      step4_d1:'Mix revisions are provided at <strong>no additional cost</strong> until you are fully satisfied.',
+      step4_d2:'Sending all feedback at once helps us turn around revisions more quickly.',
+      step4_d3:'Final deliverable: <strong>48kHz / 24bit / WAV stereo</strong>.',
+      pf_vocal:'Vocal Mix', pf_multi:'Multitrack Mix', pf_studio:'Studio Recording',
+      pf_edit:'Vocal Editing', pf_master:'Mastering',
+      tab_vocal:'Vocal Mix', tab_multi:'Multitrack Mix', tab_edit:'Vocal Editing', tab_master:'Mastering',
+      vocal_note1:'Includes editing (pitch/timing correction, noise removal) + mixing + mastering.',
+      vocal_note2:'Track count: two alternating takes without overlap count as 1 track. Short incidental parts are not counted separately.',
+      vocal_note3:'Commercial use (live concert streams, theatrical screenings, original songs, etc.) is billed separately — please inquire.',
+      price_solo:'A. Solo Vocal Mix', price_duet:'B. Duet Vocal Mix', price_choir:'C. Choir Vocal Mix',
+      price_multi_np:'Non-Commercial Multitrack Mix', price_multi_com:'Commercial Multitrack Mix',
+      price_edit:'Vocal Editing Only', price_2trk:'2TRK Mastering', price_stem:'Stem Mastering',
+      multi_note1:'Includes vocal editing, mixing, and mastering.',
+      multi_note2:'Pricing is flexible based on project scope. Figures below are reference points.',
+      edit_note1:'Includes pitch/timing correction and light noise repair as needed.',
+      edit_note2:'Years of experience across diverse vocal sources allow for precise, source-appropriate processing.',
+      master_note1:'Loudness is brought to a standard level with careful attention to detail.',
+      master_note2:'Reference tracks and stylistic preferences are actively incorporated.',
+      master_note3:'For multi-song projects, overall balance, tone, and loudness are unified across all tracks.',
+      addon_th1:'Option', addon_th2:'Additional Fee', addon_th3:'Notes',
+      addon_harmony:'Artificial Harmony Creation',
+      addon_rush1:'Rush — Within 1 Week', addon_rush2:'Rush — Within 3 Days', addon_rush3:'Same-Day (Within 24 Hours)',
+      notice1:'Turnaround is <strong>3 days – 2 weeks</strong> (solo/duet) or <strong>1–3 weeks</strong> (choir). Most orders are delivered earlier. If issues arise, you will be notified in advance and a full refund will be issued.',
+      notice2:'The stated turnaround begins from file submission and payment, and does not include time spent on revisions.',
+      notice3:'Final quality may vary depending on the quality of the recorded source material.',
+      notice4_title:'Refund Policy',
+      refund_before:'Before start — 100% refund', refund_after:'After start — 60% refund', refund_done:'After delivery — No refund',
+      notice5:'Rush and same-day orders require a separate request. Please confirm availability before submitting.',
+      // prices (USD)
+      ptag_solo:'$35<span></span>', ptag_duet:'$70<span></span>', ptag_choir:'$35<span>/person</span>',
+      ptag_multi_np:'$105<span>~</span>', ptag_multi_com:'$205<span>~</span>',
+      ptag_edit:'$14<span>~</span>', ptag_2trk:'$20<span>/track</span>', ptag_stem:'$70<span>~/track</span>',
+      chip_solo_len:'+$3 per +30 sec', chip_solo_trk:'+$3 per additional track',
+      chip_solo_noedit:'No editing: −$14', chip_solo_1st:'1st verse only $20', chip_solo_hl:'Highlight (Shorts) $14',
+      chip_duet_len:'+$3 per +30 sec / per person', chip_duet_trk:'+$3 per additional track',
+      chip_duet_noedit:'No editing: −$14/person', chip_duet_1st:'1st verse only $40', chip_duet_hl:'Highlight (Shorts) $30',
+      chip_choir_len:'+$3 per +30 sec / per person', chip_choir_trk:'+$3 per additional track',
+      chip_choir_noedit:'No editing: −$14/person', chip_choir_disc:'Discounts available based on size, length & tuning (inquire)',
+      chip_multi_np_trk:'Extra tracks: inquire', chip_multi_np_voc:'2+ vocalists: +$30/person',
+      chip_multi_com_trk:'Extra tracks: inquire', chip_multi_com_voc:'2+ vocalists: +$50/person',
+      chip_edit_add:'Additional tracks (harmonies, chorus) by negotiation',
+      chip_2trk_com:'Commercial $40/track',
+      chip_stem_desc:'Allows finer control over each stem\'s balance and tone compared to 2TRK (inquire)',
+      addon_harmony_price:'+$7 / track',
+      addon_rush1_price:'+$14/person', addon_rush2_price:'+$20/person', addon_rush3_price:'+$35/person',
+      addon_rush1_note:'Choir available (confirm first)', addon_rush2_note:'Choir available depending on scope',
+      addon_rush3_note:'Availability must be confirmed in advance',
+      // price card sub-labels
+      pf_vocal_count:'500+ tracks',
+      sub_solo:'Excl. INST · 3 tracks · up to 4 min',
+      sub_duet:'Excl. INST · 3 tracks/person · up to 4 min',
+      sub_choir:'3 tracks/person · up to 4 min / Splitting by part recommended',
+      sub_multi_np:'Up to 4 min, up to 20 instrument tracks',
+      sub_multi_com:'Commercial release, distribution, etc. / Up to 4 min, ~20 tracks',
+      sub_edit:'1 raw track (non-commercial)',
+      sub_2trk:'Stereo mix-down (mastering only)',
+      sub_stem:'Stem files by source (Drum / Bass / Guitar / Piano / Synth / Vocal / Etc...)',
+      // step 01 updated
+      step1_d1:'Please reach out via the contact methods below (Email / KakaoTalk Open Chat / Discord) and send your files.',
+    },
+
+    ja: {
+      header_label:'フリーランス サウンドエンジニア', header_sub:'MIX COMMISSION',
+      nav_about:'自己紹介', nav_process:'依頼の流れ', nav_portfolio:'ポートフォリオ',
+      nav_pricing:'料金表', nav_addon:'追加オプション', nav_notice:'注意事項', nav_contact:'連絡先',
+      eyebrow_about:'ABOUT', title_about:'自己紹介',
+      eyebrow_process:'WORKFLOW', title_process:'依頼の流れ',
+      eyebrow_portfolio:'PORTFOLIO', title_portfolio:'ポートフォリオ',
+      eyebrow_pricing:'PRICING', title_pricing:'料金表',
+      eyebrow_addon:'ADD-ON', title_addon:'追加オプション',
+      eyebrow_notice:'NOTICE', title_notice:'注意事項',
+      eyebrow_contact:'CONTACT', title_contact:'連絡先',
+      tagline:'良い音をさらに良く、弱点を感じさせない。',
+      gear_hw:'ハードウェア一覧', gear_sw:'ソフトウェア一覧',
+      profile_text_1:'フリーランスサウンドエンジニアのRinkleです。',
+      profile_text_2:'音響を専攻し（2023年学士取得）、卒業後も外注・コラボレーション活動を通じて実務経験を積み続けています。',
+      profile_text_3:'ホームレコーディング素材を長年扱ってきた経験、スタジオ収録・ライブ現場の知識を活かし、カバー曲から商業リリース、バーチャルアーティストのライブ配信、劇場・ステージ向け音源まで幅広く手掛けてきました。',
+      profile_text_4:'音楽への愛情を持って、どんな作業にも誠実に向き合います。アーティストが満足するまで、最後まで丁寧に対応いたします。',
+      stat_years:'YEARS OF EXPERIENCE', stat_tracks:'PUBLIC PORTFOLIO TRACKS',
+      stat_total:'TOTAL WORKS', stat_deadlines:'MISSED DEADLINES',
+      step1_title:'お問い合わせ・ファイル送付', step2_title:'料金・スケジュール確認 / お支払い',
+      step3_title:'制作作業', step4_title:'フィードバック・納品',
+      step1_d2:'MR / INST：ステレオ、ボーカル音源：WAV / 48,000Hz / 24bit / Mono を推奨します。',
+      step1_d3:'他のフォーマットでも対応可能ですが、MR / INST は必ずステレオでお送りください。',
+      step1_d4:'リファレンス音源があれば一緒にお送りいただくと、よりご希望に沿った仕上がりになります。',
+      step2_d1:'作業期間：ソロ・デュエットは <strong>3日〜最大2週間</strong>、合唱は <strong>1〜3週間</strong> が目安です。',
+      step2_d2:'ご希望の納期がある場合は、事前にお知らせください。',
+      step3_d1:'<strong>エディット → ミックス → マスタリング</strong> の順で進めます。',
+      step3_d2:'中間確認をご希望の場合は、作業開始前にお申し付けください。',
+      step4_d1:'ミックスの修正は、ご満足いただけるまで <strong>追加料金なし</strong> で対応します。',
+      step4_d2:'フィードバックをまとめて一度にお送りいただくと、より迅速に対応できます。',
+      step4_d3:'最終納品物は <strong>48kHz / 24bit / WAV ステレオ</strong> でお届けします。',
+      pf_vocal:'ボーカルミックス', pf_multi:'マルチトラックミックス', pf_studio:'スタジオレコーディング',
+      pf_edit:'ボーカルエディット', pf_master:'マスタリング',
+      tab_vocal:'ボーカルミックス', tab_multi:'マルチトラックミックス', tab_edit:'ボーカルエディット', tab_master:'マスタリング',
+      vocal_note1:'エディット（ピッチ・タイミング補正／ノイズ除去）＋ミックス＋マスタリングをすべて含んだ料金です。',
+      vocal_note2:'トラック数の基準：2テイクが重複なく交互に録音されている場合は1トラックとして扱います。短いSE等は別カウントしません。',
+      vocal_note3:'個人配信コンサート・映画館上映・オリジナル楽曲など商業利用の場合は別途お問い合わせください。',
+      price_solo:'A. ソロ ボーカルミックス', price_duet:'B. デュエット ボーカルミックス', price_choir:'C. 合唱 ボーカルミックス',
+      price_multi_np:'非商業 マルチトラックミックス', price_multi_com:'商業 マルチトラックミックス',
+      price_edit:'ボーカルエディットのみ', price_2trk:'2TRKマスタリング', price_stem:'ステムマスタリング',
+      multi_note1:'ボーカルエディット・ミックス・マスタリングをすべて含んだ料金です。',
+      multi_note2:'曲の構成に応じて料金は柔軟に調整可能です。下記は参考価格です。',
+      edit_note1:'ピッチ・タイミング補正、必要に応じて簡易ノイズ修復（Repair）を含みます。',
+      edit_note2:'多数のボーカル素材を手がけてきた経験をもとに、素材の特性に合ったプラグインを選び、丁寧に処理します。',
+      master_note1:'全体の音圧を標準的なレベルに整え、細部まで丁寧に仕上げます。',
+      master_note2:'ご希望のサウンドやリファレンスがあれば積極的に反映します。',
+      master_note3:'複数曲をまとめてご依頼の場合、全体のバランス・質感・音圧を統一して仕上げます。',
+      addon_th1:'オプション', addon_th2:'追加料金', addon_th3:'備考',
+      addon_harmony:'人工ハーモニー制作',
+      addon_rush1:'特急 — 1週間以内', addon_rush2:'特急 — 3日以内', addon_rush3:'当日（24時間以内）',
+      notice1:'作業期間はソロ・デュエット <strong>3日〜最大2週間</strong>、合唱 <strong>1〜最大3週間</strong> です。ほとんどの場合、記載より早く納品します。対応が難しい場合は事前にご連絡し、全額返金いたします。',
+      notice2:'上記の期間はフィードバック期間を除き、ファイル送付・入金日を起点として算定します。フィードバックによる追加所要時間は含まれません。',
+      notice3:'録音素材の品質によって、ポートフォリオのサンプルと仕上がりが異なる場合があります。',
+      notice4_title:'返金ポリシー',
+      refund_before:'作業開始前 — 全額返金', refund_after:'作業開始後 — 60%返金', refund_done:'納品後 — 返金不可',
+      notice5:'特急・当日対応は別途お申し込みが必要です。対応可否を事前にご確認ください。',
+      // prices (JPY)
+      ptag_solo:'¥5,400<span></span>', ptag_duet:'¥10,900<span></span>', ptag_choir:'¥5,400<span>/人</span>',
+      ptag_multi_np:'¥16,300<span>〜</span>', ptag_multi_com:'¥32,600<span>〜</span>',
+      ptag_edit:'¥2,200<span>〜</span>', ptag_2trk:'¥3,300<span>/曲</span>', ptag_stem:'¥10,900<span>〜/曲</span>',
+      chip_solo_len:'+30秒ごと +¥550', chip_solo_trk:'トラック追加 +¥450/トラック',
+      chip_solo_noedit:'エディットなし −¥2,200', chip_solo_1st:'1番のみ ¥3,300', chip_solo_hl:'ハイライト (Shorts) ¥2,200',
+      chip_duet_len:'+30秒ごと / 1人 +¥550', chip_duet_trk:'トラック追加 +¥450/トラック',
+      chip_duet_noedit:'エディットなし / 1人 −¥2,200', chip_duet_1st:'1番のみ ¥6,500', chip_duet_hl:'ハイライト (Shorts) ¥4,400',
+      chip_choir_len:'+30秒ごと / 1人 +¥550', chip_choir_trk:'トラック追加 +¥450/トラック',
+      chip_choir_noedit:'エディットなし / 1人 −¥2,200', chip_choir_disc:'人数・曲の長さ・チューニングにより追加割引あり（要相談）',
+      chip_multi_np_trk:'トラック追加料金は要相談', chip_multi_np_voc:'ボーカル2人以上 / 1人 +¥4,400',
+      chip_multi_com_trk:'トラック追加料金は要相談', chip_multi_com_voc:'ボーカル2人以上 / 1人 +¥7,600',
+      chip_edit_add:'追加トラック（ハーモニー、コーラス）は分量により要相談',
+      chip_2trk_com:'商業 ¥6,500/曲',
+      chip_stem_desc:'2TRKマスタリングより各パートのバランスとサウンドをより細かく調整可能（要相談）',
+      addon_harmony_price:'+¥1,100 / トラック',
+      addon_rush1_price:'1人 +¥2,200', addon_rush2_price:'1人 +¥3,300', addon_rush3_price:'1人 +¥5,400',
+      addon_rush1_note:'合唱も対応可（要事前確認）', addon_rush2_note:'規模により合唱可（要事前確認）',
+      addon_rush3_note:'対応可否の事前確認必須',
+      // 価格カード サブラベル
+      pf_vocal_count:'500曲以上',
+      sub_solo:'INST除く 3トラック・4分以内基準',
+      sub_duet:'INST除く 1人3トラック・4分以内基準',
+      sub_choir:'1人3トラック・4分以内基準 / パート別トラック分割推奨',
+      sub_multi_np:'〜4分、〜楽器20トラック基準',
+      sub_multi_com:'収益化・アルバムリリース等 / 〜4分・〜20トラック基準',
+      sub_edit:'原音1トラック基準（非商業）',
+      sub_2trk:'ミックス完了済みステレオ音源基準',
+      sub_stem:'ソース別ステムファイル基準 (Drum / Bass / Guitar / Piano / Synth / Vocal / Etc...)',
+      // ステップ01 更新
+      step1_d1:'下記の連絡先（メール / カカオトークオープンチャット / Discord）よりお問い合わせの上、ファイルをお送りください.',
+    }
+  };
+  function setLang(lang) {
+    const t = i18n[lang];
+    if (!t) return;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang);
+    });
+    document.documentElement.lang = lang === 'ja' ? 'ja' : lang === 'en' ? 'en' : 'ko';
+  }
+</script>
+</body>
+</html>
