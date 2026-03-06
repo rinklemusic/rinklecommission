@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rinkle Music | Mix Commission</title>
+<title>Rinklemusic | Mix Commission</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -43,12 +43,21 @@
     background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(200,169,110,0.08), transparent 70%);
     pointer-events: none;
   }
+  .site-sublabel {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
   .site-label {
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.4em;
     font-size: 11px;
     color: var(--accent);
-    margin-bottom: 20px;
+    margin-bottom: 6px;
     text-transform: uppercase;
   }
   header h1 {
@@ -594,7 +603,8 @@
 
 <!-- HEADER -->
 <header>
-  <div class="site-label"><span data-i18n="header_label">Freelance Sound Engineer</span></div>
+  <div class="site-label"><span data-i18n="header_label">Sound Engineer</span></div>
+  <div class="site-sublabel" data-i18n="header_sublabel">Mixing · Mastering · Editing</div>
   <h1>Rinkle<span>music</span></h1>
   <p class="header-sub" data-i18n="header_sub">MIX COMMISSION</p>
 </header>
@@ -629,7 +639,7 @@
     </div>
     <div class="profile-grid">
       <div class="stat-card">
-        <div class="stat-num">6+</div>
+        <div class="stat-num">'18~</div>
         <div class="stat-label" data-i18n="stat_years">YEARS OF EXPERIENCE</div>
       </div>
       <div class="stat-card">
@@ -1047,7 +1057,7 @@
 </section>
 
 <footer>
-  © 2024–2025 Rinklemusic | Freelance Sound Engineer
+  © 2018–2025 Rinklemusic | Sound Engineer
 </footer>
 
 <script>
@@ -1083,7 +1093,7 @@
   /* ── 다국어 번역 데이터 ── */
   const i18n = {
     ko: {
-      header_label:'Freelance Sound Engineer', header_sub:'MIX COMMISSION',
+      header_label:'Sound Engineer', header_sublabel:'Mixing · Mastering · Editing', header_sub:'MIX COMMISSION',
       nav_about:'소개', nav_process:'진행 순서', nav_portfolio:'포트폴리오',
       nav_pricing:'가격표', nav_addon:'추가 옵션', nav_notice:'주의사항', nav_contact:'연락처',
       eyebrow_about:'ABOUT', title_about:'자기소개',
@@ -1096,7 +1106,7 @@
       tagline:'좋은 소리는 더 좋게, 단점은 들리지 않도록.',
       gear_hw:'하드웨어 목록', gear_sw:'소프트웨어 목록',
       profile_text_1:'사운드 엔지니어 링클입니다.',
-      profile_text_2:'음향을 전공하였으며 (2023년 학사 졸업), 이후에도 꾸준히 외주 작업과 협업에 참여하며 실무 경험을 쌓아오고 있습니다.',
+      profile_text_2:'음향을 전공하였으며 (2023년 학사 졸업), 2018년부터 꾸준히 외주 작업과 협업에 참여하며 실무 경험을 쌓아오고 있습니다.',
       profile_text_3:'홈레코딩 소스를 오랜 기간 다루며 축적한 데이터, 스튜디오 레코딩 및 라이브 현장 경험을 바탕으로 커버곡부터 발매 음원, 버추얼 아티스트 온라인 송출, 영화관·무대 납품 음원까지 폭넓게 작업해 왔습니다.',
       profile_text_4:'음악을 사랑하는 만큼 어떤 작업이든 진심으로 임하며, 아티스트가 만족할 때까지 끝까지 함께하겠습니다.',
       stat_years:'YEARS OF EXPERIENCE', stat_tracks:'PUBLIC PORTFOLIO TRACKS',
@@ -1172,7 +1182,7 @@
     },
 
     en: {
-      header_label:'Freelance Sound Engineer', header_sub:'MIX COMMISSION',
+      header_label:'Sound Engineer', header_sublabel:'Mixing · Mastering · Editing', header_sub:'MIX COMMISSION',
       nav_about:'About', nav_process:'Workflow', nav_portfolio:'Portfolio',
       nav_pricing:'Pricing', nav_addon:'Add-ons', nav_notice:'Notice', nav_contact:'Contact',
       eyebrow_about:'ABOUT', title_about:'About',
@@ -1185,7 +1195,7 @@
       tagline:'Making good sounds better — hiding every flaw.',
       gear_hw:'Hardware List', gear_sw:'Software List',
       profile_text_1:'I\'m Rinkle, a freelance sound engineer.',
-      profile_text_2:'I majored in audio engineering (B.A., 2023) and have continued building hands-on experience through ongoing freelance and collaborative projects.',
+      profile_text_2:'I majored in audio engineering (B.A., 2023) and have been building hands-on experience through freelance and collaborative projects since 2018.',
       profile_text_3:'Drawing from years of home recording, studio sessions, and live sound experience, I have worked across a wide range of projects — from cover songs and commercial releases to virtual artist live streams and theatrical audio.',
       profile_text_4:'I approach every project with genuine passion for music, and I\'m committed to working alongside each artist until they\'re fully satisfied.',
       stat_years:'YEARS OF EXPERIENCE', stat_tracks:'PUBLIC PORTFOLIO TRACKS',
@@ -1261,7 +1271,7 @@
     },
 
     ja: {
-      header_label:'フリーランス サウンドエンジニア', header_sub:'MIX COMMISSION',
+      header_label:'Sound Engineer', header_sublabel:'Mixing · Mastering · Editing', header_sub:'MIX COMMISSION',
       nav_about:'自己紹介', nav_process:'依頼の流れ', nav_portfolio:'ポートフォリオ',
       nav_pricing:'料金表', nav_addon:'追加オプション', nav_notice:'注意事項', nav_contact:'連絡先',
       eyebrow_about:'ABOUT', title_about:'自己紹介',
@@ -1274,7 +1284,7 @@
       tagline:'良い音をさらに良く、弱点を感じさせない。',
       gear_hw:'ハードウェア一覧', gear_sw:'ソフトウェア一覧',
       profile_text_1:'フリーランスサウンドエンジニアのRinkleです。',
-      profile_text_2:'音響を専攻し（2023年学士取得）、卒業後も外注・コラボレーション活動を通じて実務経験を積み続けています。',
+      profile_text_2:'音響を専攻し（2023年学士取得）、2018年より外注・コラボレーション活動を通じて実務経験を積み続けています。',
       profile_text_3:'ホームレコーディング素材を長年扱ってきた経験、スタジオ収録・ライブ現場の知識を活かし、カバー曲から商業リリース、バーチャルアーティストのライブ配信、劇場・ステージ向け音源まで幅広く手掛けてきました。',
       profile_text_4:'音楽への愛情を持って、どんな作業にも誠実に向き合います。アーティストが満足するまで、最後まで丁寧に対応いたします。',
       stat_years:'YEARS OF EXPERIENCE', stat_tracks:'PUBLIC PORTFOLIO TRACKS',
@@ -1356,6 +1366,7 @@
       const key = el.getAttribute('data-i18n');
       if (t[key] !== undefined) el.innerHTML = t[key];
     });
+    document.quer
     document.querySelectorAll('.lang-btn').forEach(b => {
       b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang);
     });
