@@ -170,8 +170,71 @@
     text-decoration: none;
     letter-spacing: 0.1em;
     transition: all 0.2s;
+    cursor: pointer;
+    background: none;
+    font-family: 'Noto Sans KR', sans-serif;
   }
   .gear-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .gear-btn.open { border-color: var(--accent); color: var(--accent); }
+
+  /* ─── GEAR ACCORDION ─── */
+  .gear-panel {
+    display: none;
+    border: 1px solid var(--border);
+    border-top: none;
+    margin-bottom: 32px;
+    background: var(--surface);
+  }
+  .gear-panel.open { display: block; }
+  .gear-group {
+    border-bottom: 1px solid var(--border);
+  }
+  .gear-group:last-child { border-bottom: none; }
+  .gear-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .gear-group-header:hover { background: var(--surface2); }
+  .gear-group-name {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-family: 'Bebas Neue', sans-serif;
+  }
+  .gear-group-arrow {
+    font-size: 10px;
+    color: var(--text-dim);
+    transition: transform 0.2s;
+  }
+  .gear-group.open .gear-group-arrow { transform: rotate(180deg); }
+  .gear-group-body {
+    display: none;
+    padding: 8px 20px 16px 20px;
+  }
+  .gear-group.open .gear-group-body { display: block; }
+  .gear-item-list {
+    list-style: none;
+    display: grid;
+    gap: 4px;
+  }
+  .gear-item-list li {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    display: flex;
+    gap: 8px;
+  }
+  .gear-item-list li::before {
+    content: '·';
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
 
   /* ─── PROFILE ─── */
   .profile-grid {
@@ -687,6 +750,16 @@
     margin: 24px 0;
   }
   .request-ref-group .request-field { margin-bottom: 14px; }
+  .req-info-box {
+    background: var(--surface2);
+    border-left: 2px solid var(--accent2);
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+  }
 </style>
 </head>
 <body>
@@ -730,9 +803,288 @@
     <div class="profile-tagline"><span data-i18n="tagline">좋은 소리는 더 좋게, 단점은 들리지 않도록.</span></div>
 
     <div class="gear-links">
-      <a class="gear-btn" href="https://blog.naver.com/rinklemusic/223387198928" target="_blank"><span data-i18n="gear_hw">하드웨어 목록</span> →</a>
-      <a class="gear-btn" href="https://blog.naver.com/rinklemusic/223387240851" target="_blank"><span data-i18n="gear_sw">소프트웨어 목록</span> →</a>
+      <button class="gear-btn" onclick="toggleGear('hw', this)"><span data-i18n="gear_hw">하드웨어 목록</span> ▾</button>
+      <button class="gear-btn" onclick="toggleGear('sw', this)"><span data-i18n="gear_sw">소프트웨어 목록</span> ▾</button>
     </div>
+
+    <!-- HW ACCORDION -->
+    <div class="gear-panel" id="gear-hw">
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">MAIN — Interface / Monitor</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>RME Fireface UC <span style="color:var(--text-dim);margin-left:6px;">Interface</span></li>
+            <li>Topping DX5 II <span style="color:var(--text-dim);margin-left:6px;">DAC &amp; AMP</span></li>
+            <li>IK Multimedia ARC STUDIO <span style="color:var(--text-dim);margin-left:6px;">DSP</span></li>
+            <li>Genelec M030 <span style="color:var(--text-dim);margin-left:6px;">SPK 1</span></li>
+            <li>Fostex 6301B <span style="color:var(--text-dim);margin-left:6px;">SPK 2</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">SUB — Interface / Monitor</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Arturia Audiofuse <span style="color:var(--text-dim);margin-left:6px;">Interface</span></li>
+            <li>Dynaudio BM5A MK2 <span style="color:var(--text-dim);margin-left:6px;">SPK 1 (w/ IK ARC 3)</span></li>
+            <li>Fostex 6301B <span style="color:var(--text-dim);margin-left:6px;">SPK 2</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">Headphone</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Sennheiser HD600</li>
+            <li>Sennheiser HD560S</li>
+            <li>TAKSTAR PRO82 × 3</li>
+            <li>Apple EarPod</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">Microphone</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Alctron TL39</li>
+            <li>M-Audio LDV-1 × 2</li>
+            <li>Warm Audio WA-14 Stereo Pair</li>
+            <li>Behringer XM8500 × 2</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">Outboard</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Black Lion Audio B173 <span style="color:var(--text-dim);margin-left:6px;">Preamp</span></li>
+            <li>Joemeek Three Q <span style="color:var(--text-dim);margin-left:6px;">Preamp / Channel Strip</span></li>
+            <li>Studio Projects VTB1 <span style="color:var(--text-dim);margin-left:6px;">Tube Preamp</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SW ACCORDION -->
+    <div class="gear-panel" id="gear-sw">
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">DAW</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>AVID Pro Tools Studio Perpetual 2024.10 (+ 9, 10, 11, 12)</li>
+            <li>Presonus Studio One 6 Professional</li>
+            <li>Presonus Studio One 4 Professional</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">Tuning</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Celemony — Melodyne Studio 5</li>
+            <li>Syncro Arts — Vocalign Pro 6</li>
+            <li>Antares — Auto-Tune 9 Artist</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">UADx Native — Signature Edition V1</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>UAD Sound City Studios</li><li>Capitol Chambers</li><li>Capitol Mastering Compressor</li>
+            <li>Hitsville EQ Collection</li><li>Hitsville Reverb Chambers</li>
+            <li>API Vision Channel Strip Collection</li><li>API 2500 Bus Compressor</li>
+            <li>Manley Massive Passive EQ</li><li>Manley VOXBOX Channel Strip</li>
+            <li>Avalon VT-737 Tube Channel Strip</li><li>dbx 160 Compressor/Limiter</li>
+            <li>Empirical Labs EL8 Distressor</li><li>Fairchild Tube Limiter Collection</li>
+            <li>Lexicon 224 Digital Reverb</li><li>Manley Tube Preamp</li>
+            <li>Studer A800 Tape Recorder</li><li>Teletronix LA-3A Classic Audio Leveler</li>
+            <li>UA 175B &amp; 176 Tube Compressor Collection</li>
+            <li>1176 Classic Limiter Collection</li><li>Teletronix LA-2A Classic Leveler Collection</li>
+            <li>Pultec Passive EQ Collection</li><li>Century Tube Channel Strip</li>
+            <li>Pure Plate Reverb</li><li>Galaxy Tape Echo</li><li>Oxide Tape Recorder</li>
+            <li>Studio D Chorus</li><li>Brigade Chorus</li>
+            <li>Electra 88 Vintage Keyboard Studio</li><li>Moog Minimoog</li>
+            <li>Opal Morphing Synthesizer</li><li>Ravel Grand Piano</li>
+            <li>Waterfall B3 Organ</li><li>Waterfall Rotary Speaker</li><li>PolyMAX Synth</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">FabFilter — Total Bundle (Legacy)</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>One · Simplon · Volcano 2 · Twin 2 · Timeless 2 · Micro</li>
+            <li>Pro-G · Pro-DS · Pro-MB · Pro-C 2 · Pro-L 2 · Pro-Q 3 · Pro-R · Saturn</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">IK Multimedia — Total Studio 3.5 MAX</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Amplitube 5 MAX</li><li>ARC System 3</li><li>Hammond B-3X</li>
+            <li>Lurssen Mastering Console</li><li>Miroslav Philharmonik 2</li>
+            <li>MixBox</li><li>MODO BASS</li><li>MODO DRUM</li>
+            <li>SampleTank 4 MAX</li><li>SampleTron 2</li>
+            <li>Syntronik Deluxe</li><li>Syntronik 2</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">IK Multimedia — T-RackS 5 MAX</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>The Farm Stone Room · FAME Studio Reverb · Sunset Sound Studio Reverb</li>
+            <li>Joe Chiccarelli Vocal Strip</li>
+            <li>TACAM 388 · TASCAM Porta ONE · TEAC A-3340S · TEAC A-6100 MKII</li>
+            <li>Tape Machine 24 / 80 / 99 / 440</li>
+            <li>Space Delay · Tape Echo · T-RackS Leslie</li>
+            <li>Comprexxor · Black 76 · White 2A · Vintage Tube Compressor 670</li>
+            <li>Dyna-Mu · Opto Compressor · Quad Comp · Quad Lim · Bus Compressor</li>
+            <li>Precision Comp/Limiter · Brickwall Limiter · Stealth Limiter</li>
+            <li>Classic T-RackS EQ / Comp / Clipper / Multi-band Limiter</li>
+            <li>EQual · EQ PA/PB/PG · EQ 73 · EQ 81 · Master EQ 432</li>
+            <li>Vintage Tube Program EQ · Linear Phase EQ · De-Esser</li>
+            <li>Quad Image · Master Match · Full Metering</li>
+            <li>British Channel · White Channel · Mic Room · Saturator X · ONE</li>
+            <li>CSR Hall / Plate / Room / Inverse Reverb</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">Plugin Alliance</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Ampeg SVTVR Classic</li><li>Black Box HG-2</li>
+            <li>bx_cleansweep</li><li>bx_console Focusrite SC</li>
+            <li>bx_masterdesk</li><li>bx_stereomaker</li>
+            <li>Maag EQ2</li><li>Shadow Hills Mastering Compressor</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">iZotope</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Audiolenz</li><li>Insight 2</li>
+            <li>Ozone 8 Elements</li><li>Ozone 10 Elements</li>
+            <li>RX7 Standard</li><li>Neutron Elements</li><li>Vocal Doubler</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">Softube</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Tube Delay</li><li>TSAR-1R</li><li>Saturation Knob</li>
+            <li>Drawmer S73 Intelligent Master Processor</li>
+            <li>Marshall Silver Jubilee 2555</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">Soundtoys</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Little Radiator V5</li><li>Little Plate V5</li>
+            <li>SpaceBlender V5</li><li>Echoboy JR V5</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">SSL Native</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Bus Compressor 2</li><li>Fusion Vintage Drive</li>
+            <li>Fusion Stereo Image</li><li>G3 Multibus Comp</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">Pulsar Audio</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Smasher</li><li>W495</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">Metric Halo</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>MH Transient Control</li><li>MH Channel Strip (V3 &amp; V4)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">Arturia</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Analog Lab Intro / Lite</li>
+            <li>Chorus JUN-6</li><li>Comp DIODE-609</li><li>Comp FET-76</li>
+            <li>Delay TAPE-201</li><li>Filter MINI</li><li>Phaser BI-TRON</li>
+            <li>Pre 1973</li><li>Pre TridA</li><li>Pre V76</li><li>Rev PLATE-140</li>
+          </ul>
+        </div>
+      </div>
+      <div class="gear-group">
+        <div class="gear-group-header" onclick="toggleGearGroup(this)">
+          <span class="gear-group-name">기타 / Others</span><span class="gear-group-arrow">▼</span>
+        </div>
+        <div class="gear-group-body">
+          <ul class="gear-item-list">
+            <li>Oeksound — Soothe 2</li>
+            <li>Liquid Sonic — Seventh Heaven Professional</li>
+            <li>Waves — Horizon Bundle + Etc</li>
+            <li>Relab — Essential Bundle</li>
+            <li>Slate Digital — Fresh Air</li>
+            <li>ToneBoosters — Legacy Bundle</li>
+            <li>Sonnox — Soften</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
     <div class="profile-grid">
       <div class="stat-card">
         <div class="stat-num">2018~</div>
@@ -1162,7 +1514,18 @@
       <span class="request-form-label" data-i18n="req_form_label">COPY &amp; SEND</span>
       <p class="request-form-desc" data-i18n="req_form_desc">아래 양식을 복사하여 연락처로 보내주세요. 무기재 항목은 비워두셔도 됩니다.</p>
 
+      <div class="req-info-box" data-i18n="req_info_box">
+        📎 파일 전송 규격 안내 — 보내실 때 이 줄은 지워주셔도 됩니다.<br>
+        · 녹음본 (보컬): WAV / 48,000Hz / 24bit / Mono 권장<br>
+        · MR / INST: 반드시 스테레오 (MP3 가능하나 WAV 권장)<br>
+        · 레퍼런스 파일이 있다면 함께 보내주시면 더욱 도움이 됩니다.
+      </div>
+
       <div class="request-fields-grid">
+        <div class="request-field">
+          <span class="request-field-label" data-i18n="req_channel_label">활동명 / 투고되는 채널</span>
+          <div class="request-field-value" data-i18n="req_channel_ph">예) @username / YouTube</div>
+        </div>
         <div class="request-field">
           <span class="request-field-label" data-i18n="req_song_label">곡 제목</span>
           <div class="request-field-value" data-i18n="req_song_ph">—</div>
@@ -1172,12 +1535,8 @@
           <div class="request-field-value" data-i18n="req_type_ph">예) 솔로 Vocal Mix / 1인</div>
         </div>
         <div class="request-field">
-          <span class="request-field-label" data-i18n="req_rush_label">빠른 마감</span>
-          <div class="request-field-value" data-i18n="req_rush_ph">예) 1주일 이내 / 해당 없음</div>
-        </div>
-        <div class="request-field">
-          <span class="request-field-label" data-i18n="req_addon_label">인공화음 등 옵션 추가 여부</span>
-          <div class="request-field-value" data-i18n="req_addon_ph">예) 인공화음 필요 / 없음</div>
+          <span class="request-field-label" data-i18n="req_addon_label">추가 옵션</span>
+          <div class="request-field-value" data-i18n="req_addon_ph">예) 빠른 마감 1주일 이내 / 인공화음 / 없음</div>
         </div>
         <div class="request-field">
           <span class="request-field-label">
@@ -1187,8 +1546,8 @@
           <div class="request-field-value" data-i18n="req_deadline_ph">예) 2025년 3월 15일</div>
         </div>
         <div class="request-field">
-          <span class="request-field-label" data-i18n="req_channel_label">활동명 / 투고되는 채널</span>
-          <div class="request-field-value" data-i18n="req_channel_ph">예) @username / YouTube</div>
+          <span class="request-field-label" data-i18n="req_commercial_label">상업 / 비상업 여부</span>
+          <div class="request-field-value" data-i18n="req_commercial_ph">예) 비상업 (개인 커버) / 상업 (앨범 발매 등)</div>
         </div>
       </div>
 
@@ -1230,6 +1589,23 @@
 
 <script>
   /* ── 탭 전환 ── */
+  function toggleGear(id, btn) {
+    const panel = document.getElementById('gear-' + id);
+    const isOpen = panel.classList.contains('open');
+    // 다른 패널 닫기
+    document.querySelectorAll('.gear-panel').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.gear-btn').forEach(b => b.classList.remove('open'));
+    // 클릭한 패널 토글
+    if (!isOpen) {
+      panel.classList.add('open');
+      btn.classList.add('open');
+    }
+  }
+
+  function toggleGearGroup(header) {
+    header.parentElement.classList.toggle('open');
+  }
+
   function switchTab(e, id) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -1354,12 +1730,13 @@
       eyebrow_request:'REQUEST FORM', title_request:'신청 양식',
       req_form_label:'COPY & SEND',
       req_form_desc:'아래 양식을 복사하여 연락처로 보내주세요. 무기재 항목은 비워두셔도 됩니다.',
+      req_info_box:'📎 파일 전송 규격 안내 — 보내실 때 이 줄은 지워주셔도 됩니다.<br>· 녹음본 (보컬): WAV / 48,000Hz / 24bit / Mono 권장<br>· MR / INST: 반드시 스테레오 (MP3 가능하나 WAV 권장)<br>· 레퍼런스 파일이 있다면 함께 보내주시면 더욱 도움이 됩니다.',
       req_song_label:'곡 제목', req_song_ph:'—',
-      req_type_label:'신청 타입 / 인원 수', req_type_ph:'예) 솔로 Vocal Mix / 1인',
-      req_rush_label:'빠른 마감', req_rush_ph:'예) 1주일 이내 / 해당 없음',
-      req_addon_label:'인공화음 등 옵션 추가 여부', req_addon_ph:'예) 인공화음 필요 / 없음',
-      req_deadline_label:'필요한 마감일', req_deadline_ph:'예) 2025년 3월 15일',
       req_channel_label:'활동명 / 투고되는 채널', req_channel_ph:'예) @username / YouTube',
+      req_type_label:'신청 타입 / 인원 수', req_type_ph:'예) 솔로 Vocal Mix / 1인',
+      req_addon_label:'추가 옵션', req_addon_ph:'예) 빠른 마감 1주일 이내 / 인공화음 / 없음',
+      req_deadline_label:'필요한 마감일', req_deadline_ph:'예) 2025년 3월 15일',
+      req_commercial_label:'상업 / 비상업 여부', req_commercial_ph:'예) 비상업 (개인 커버) / 상업 (앨범 발매 등)',
       req_ref_eyebrow:'REFERENCE',
       req_reflink_label:'레퍼런스 곡 링크', req_reflink_ph:'예) https://youtu.be/xxxxxx',
       req_vibe_label:'원하시는 분위기', req_vibe_ph:'예) 따뜻하고 잔잔한 느낌, 깔끔한 팝 믹스 등',
@@ -1462,12 +1839,13 @@
       eyebrow_request:'REQUEST FORM', title_request:'Request Form',
       req_form_label:'COPY & SEND',
       req_form_desc:'Copy the form below and send it via any contact method. Optional fields can be left blank.',
+      req_info_box:'📎 File Format Guide — feel free to delete this line before sending.<br>· Vocal recording: WAV / 48,000Hz / 24bit / Mono recommended<br>· MR / INST: stereo required (WAV preferred, MP3 accepted)<br>· Including a reference track helps align the mix with your vision.',
       req_song_label:'Song Title', req_song_ph:'—',
-      req_type_label:'Request Type / Number of People', req_type_ph:'e.g. Solo Vocal Mix / 1 person',
-      req_rush_label:'Rush Deadline', req_rush_ph:'e.g. Within 1 week / Not needed',
-      req_addon_label:'Add-ons (e.g. Artificial Harmony)', req_addon_ph:'e.g. Artificial harmony needed / None',
-      req_deadline_label:'Desired Deadline', req_deadline_ph:'e.g. March 15, 2025',
       req_channel_label:'Artist Name / Upload Channel', req_channel_ph:'e.g. @username / YouTube',
+      req_type_label:'Request Type / Number of People', req_type_ph:'e.g. Solo Vocal Mix / 1 person',
+      req_addon_label:'Add-on Options', req_addon_ph:'e.g. Rush (within 1 week) / Artificial harmony / None',
+      req_deadline_label:'Desired Deadline', req_deadline_ph:'e.g. March 15, 2025',
+      req_commercial_label:'Commercial / Non-Commercial', req_commercial_ph:'e.g. Non-commercial (personal cover) / Commercial (album release, etc.)',
       req_ref_eyebrow:'REFERENCE',
       req_reflink_label:'Reference Track Link', req_reflink_ph:'e.g. https://youtu.be/xxxxxx',
       req_vibe_label:'Desired Vibe / Mood', req_vibe_ph:'e.g. Warm and calm, clean pop mix, etc.',
@@ -1570,12 +1948,13 @@
       eyebrow_request:'REQUEST FORM', title_request:'依頼フォーム',
       req_form_label:'COPY & SEND',
       req_form_desc:'下記のフォームをコピーして、連絡先よりお送りください。任意項目は空白のままで構いません。',
+      req_info_box:'📎 ファイル送付規格のご案内 — 送付時にこの行は削除していただいて構いません。<br>· 録音素材（ボーカル）: WAV / 48,000Hz / 24bit / Mono 推奨<br>· MR / INST: ステレオ必須（WAV推奨、MP3も可）<br>· リファレンス音源があれば一緒にお送りいただけると参考になります。',
       req_song_label:'曲名', req_song_ph:'—',
-      req_type_label:'依頼タイプ / 人数', req_type_ph:'例) ソロ Vocal Mix / 1名',
-      req_rush_label:'特急オプション', req_rush_ph:'例) 1週間以内 / 不要',
-      req_addon_label:'人工ハーモニー等オプション追加', req_addon_ph:'例) 人工ハーモニー必要 / なし',
-      req_deadline_label:'希望納期', req_deadline_ph:'例) 2025年3月15日',
       req_channel_label:'活動名 / 投稿チャンネル', req_channel_ph:'例) @username / YouTube',
+      req_type_label:'依頼タイプ / 人数', req_type_ph:'例) ソロ Vocal Mix / 1名',
+      req_addon_label:'追加オプション', req_addon_ph:'例) 特急（1週間以内）/ 人工ハーモニー / なし',
+      req_deadline_label:'希望納期', req_deadline_ph:'例) 2025年3月15日',
+      req_commercial_label:'商業 / 非商業の区別', req_commercial_ph:'例) 非商業（個人カバー）/ 商業（アルバムリリース等）',
       req_ref_eyebrow:'REFERENCE',
       req_reflink_label:'リファレンス曲リンク', req_reflink_ph:'例) https://youtu.be/xxxxxx',
       req_vibe_label:'希望するイメージ・雰囲気', req_vibe_ph:'例) 温かくて穏やかな雰囲気、クリーンなポップミックス 等',
@@ -1601,12 +1980,12 @@
     const t = i18n[lang === 'ja' ? 'ja' : lang === 'en' ? 'en' : 'ko'];
     const opt = t.req_optional || '';
     const lines = [
+      `${t.req_channel_label} :`,
       `${t.req_song_label} :`,
       `${t.req_type_label} :`,
-      `${t.req_rush_label} :`,
       `${t.req_addon_label} :`,
       `${t.req_deadline_label} ${opt} :`,
-      `${t.req_channel_label} :`,
+      `${t.req_commercial_label} :`,
       ``,
       `* ${t.req_reflink_label} ${opt} :`,
       `* ${t.req_vibe_label} ${opt} :`,
