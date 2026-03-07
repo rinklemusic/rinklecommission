@@ -611,6 +611,82 @@
     color: var(--text-dim);
     font-weight: 300;
   }
+
+  /* ─── REQUEST FORM ─── */
+  .request-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px;
+    margin-top: 8px;
+  }
+  .request-form-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    font-family: 'Bebas Neue', sans-serif;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .request-form-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 28px;
+    line-height: 1.8;
+  }
+  .request-field {
+    margin-bottom: 20px;
+  }
+  .request-field-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 7px;
+    display: block;
+  }
+  .request-field-label .req-optional {
+    color: var(--text-dim);
+    font-size: 10px;
+    margin-left: 6px;
+    letter-spacing: 0.05em;
+  }
+  .request-field-value {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.8;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 11px 15px;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 42px;
+  }
+  .request-copy-btn {
+    margin-top: 24px;
+    display: inline-block;
+    padding: 13px 28px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    background: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.2s;
+  }
+  .request-copy-btn:hover { background: var(--accent); color: var(--bg); }
+  .request-copy-btn.copied { background: var(--accent); color: var(--bg); }
+  .request-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
+  }
+  @media (max-width: 600px) { .request-fields-grid { grid-template-columns: 1fr; } }
+  .request-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+  .request-ref-group .request-field { margin-bottom: 14px; }
 </style>
 </head>
 <body>
@@ -637,6 +713,7 @@
   <a href="#addon" data-i18n="nav_addon">추가 옵션</a>
   <a href="#notice" data-i18n="nav_notice">주의사항</a>
   <a href="#contact" data-i18n="nav_contact">연락처</a>
+  <a href="#request" data-i18n="nav_request">신청 양식</a>
 </nav>
 
 <!-- ABOUT -->
@@ -857,7 +934,7 @@
         <div class="price-header">
           <div>
             <div class="price-name" data-i18n="price_choir">C. 합창곡 보컬 믹싱</div>
-            <div class="price-sub" data-i18n="sub_choir">인당 3트랙, 4분 기준 / 파트별 트랙 분리 시 작업이 더욱 원활합니다</div>
+            <div class="price-sub" data-i18n="sub_choir">인당 3트랙, 4분 기준 / 파트별 트랙 분리 권장</div>
           </div>
           <div class="price-tag" data-i18n="ptag_choir">50,000<span>원/인</span></div>
         </div>
@@ -985,6 +1062,11 @@
           <td class="addon-note">—</td>
         </tr>
         <tr>
+          <td data-i18n="addon_chop">보컬 소스를 이용한 챱핑 / 특수효과</td>
+          <td class="addon-price" data-i18n="addon_chop_price">+20,000원 / 트랙</td>
+          <td class="addon-note">—</td>
+        </tr>
+        <tr>
           <td data-i18n="addon_rush1">빠른 마감 — 1주일 이내</td>
           <td class="addon-price" data-i18n="addon_rush1_price">인당 +20,000원</td>
           <td class="addon-note" data-i18n="addon_rush1_note">합창 작업도 가능 (사전 협의)</td>
@@ -1071,6 +1153,77 @@
   </div>
 </section>
 
+<!-- REQUEST FORM -->
+<section id="request">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="eyebrow_request">REQUEST FORM</div>
+    <div class="section-title" data-i18n="title_request">신청 양식</div>
+    <div class="request-form">
+      <span class="request-form-label" data-i18n="req_form_label">COPY &amp; SEND</span>
+      <p class="request-form-desc" data-i18n="req_form_desc">아래 양식을 복사하여 연락처로 보내주세요. 무기재 항목은 비워두셔도 됩니다.</p>
+
+      <div class="request-fields-grid">
+        <div class="request-field">
+          <span class="request-field-label" data-i18n="req_song_label">곡 제목</span>
+          <div class="request-field-value" data-i18n="req_song_ph">—</div>
+        </div>
+        <div class="request-field">
+          <span class="request-field-label" data-i18n="req_type_label">신청 타입 / 인원 수</span>
+          <div class="request-field-value" data-i18n="req_type_ph">예) 솔로 Vocal Mix / 1인</div>
+        </div>
+        <div class="request-field">
+          <span class="request-field-label" data-i18n="req_rush_label">빠른 마감</span>
+          <div class="request-field-value" data-i18n="req_rush_ph">예) 1주일 이내 / 해당 없음</div>
+        </div>
+        <div class="request-field">
+          <span class="request-field-label" data-i18n="req_addon_label">인공화음 등 옵션 추가 여부</span>
+          <div class="request-field-value" data-i18n="req_addon_ph">예) 인공화음 필요 / 없음</div>
+        </div>
+        <div class="request-field">
+          <span class="request-field-label">
+            <span data-i18n="req_deadline_label">필요한 마감일</span>
+            <span class="req-optional" data-i18n="req_optional">무기재 가능</span>
+          </span>
+          <div class="request-field-value" data-i18n="req_deadline_ph">예) 2025년 3월 15일</div>
+        </div>
+        <div class="request-field">
+          <span class="request-field-label" data-i18n="req_channel_label">활동명 / 투고되는 채널</span>
+          <div class="request-field-value" data-i18n="req_channel_ph">예) @username / YouTube</div>
+        </div>
+      </div>
+
+      <hr class="request-divider">
+
+      <div class="request-ref-group">
+        <div class="section-eyebrow" style="margin-bottom:16px;" data-i18n="req_ref_eyebrow">REFERENCE</div>
+        <div class="request-field">
+          <span class="request-field-label">
+            <span data-i18n="req_reflink_label">레퍼런스 곡 링크</span>
+            <span class="req-optional" data-i18n="req_optional">무기재 가능</span>
+          </span>
+          <div class="request-field-value" data-i18n="req_reflink_ph">예) https://youtu.be/xxxxxx</div>
+        </div>
+        <div class="request-field">
+          <span class="request-field-label">
+            <span data-i18n="req_vibe_label">원하시는 분위기</span>
+            <span class="req-optional" data-i18n="req_optional">무기재 가능</span>
+          </span>
+          <div class="request-field-value" data-i18n="req_vibe_ph">예) 따뜻하고 잔잔한 느낌, 깔끔한 팝 믹스 등</div>
+        </div>
+        <div class="request-field">
+          <span class="request-field-label">
+            <span data-i18n="req_etc_label">기타 요청사항</span>
+            <span class="req-optional" data-i18n="req_optional">무기재 가능</span>
+          </span>
+          <div class="request-field-value" data-i18n="req_etc_ph">—</div>
+        </div>
+      </div>
+
+      <button class="request-copy-btn" onclick="copyRequestForm(this)"><span data-i18n="req_copy_btn">양식 복사하기</span></button>
+    </div>
+  </div>
+</section>
+
 <footer>
   © 2018–2025 Rinklemusic | Sound Engineer
 </footer>
@@ -1080,7 +1233,7 @@
   function switchTab(e, id) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    e.target.classList.add('active');
+    e.currentTarget.classList.add('active');
     document.getElementById('tab-' + id).classList.add('active');
   }
 
@@ -1121,7 +1274,7 @@
       tagline:'좋은 소리는 더 좋게, 단점은 들리지 않도록.',
       gear_hw:'하드웨어 목록', gear_sw:'소프트웨어 목록',
       profile_text_1:'사운드 엔지니어 링클입니다.',
-      profile_text_2:'음향을 전공하였으며, 2018년부터 외주 작업과 협업을 시작하여 현재까지 꾸준히 실무 경험을 쌓아오고 있습니다.',
+      profile_text_2:'음향을 전공하였으며, 2018년부터 외주 작업을 시작하여 현재까지 꾸준히 실무 경험을 쌓아오고 있습니다.',
       profile_text_3:'홈레코딩 소스를 오랜 기간 다루며 축적한 데이터, 스튜디오 레코딩 및 라이브 현장 경험을 바탕으로 커버곡부터 발매 음원, 버추얼 아티스트 온라인 송출, 영화관·무대 납품 음원까지 폭넓게 작업해 왔습니다.',
       profile_text_4:'음악을 사랑하는 만큼 어떤 작업이든 진심으로 임하며, 아티스트가 만족할 때까지 끝까지 함께하겠습니다.',
       stat_years:'YEARS OF EXPERIENCE', stat_tracks:'PUBLIC PORTFOLIO TRACKS',
@@ -1156,6 +1309,7 @@
       master_note3:'여러 곡을 함께 의뢰하실 경우, 전체 트랙 간 밸런스·질감·음압을 흐름에 맞게 통일하여 처리합니다.',
       addon_th1:'옵션', addon_th2:'추가 금액', addon_th3:'비고',
       addon_harmony:'인공 화음 제작',
+      addon_chop:'보컬 소스를 이용한 챱핑 / 특수효과',
       addon_rush1:'빠른 마감 — 1주일 이내', addon_rush2:'빠른 마감 — 3일 이내', addon_rush3:'당일 마감 (24시간 이내)',
       notice1:'작업 기간은 솔로·듀엣 기준 <strong>3일 ~ 최대 2주</strong>, 합창 기준 <strong>1주 ~ 최대 3주</strong>이며, 대부분의 경우 명시된 기간보다 일찍 납품드립니다. 작업이 어려운 상황이 발생할 경우 사전에 안내드리며, 이 경우 전액 환불 처리됩니다.',
       notice2:'위 작업 기간은 피드백 기간을 제외한 기준으로, 파일 전송 및 입금일로부터 산정됩니다. 피드백 진행에 따른 추가 소요 시간은 포함되지 않습니다.',
@@ -1179,6 +1333,7 @@
       chip_2trk_com:'상업 60,000원/곡',
       chip_stem_desc:'투트랙 마스터링보다 각 파트별 밸런스와 사운드를 더 세밀하게 조정할 수 있습니다 (문의)',
       addon_harmony_price:'+10,000원 / 트랙',
+      addon_chop_price:'+20,000원 / 트랙',
       addon_rush1_price:'인당 +20,000원', addon_rush2_price:'인당 +30,000원', addon_rush3_price:'인당 +50,000원',
       addon_rush1_note:'합창 작업도 가능 (사전 협의)', addon_rush2_note:'규모에 따라 합창 가능 (사전 협의)',
       addon_rush3_note:'진행 가능 여부 사전 확인 필수',
@@ -1186,7 +1341,7 @@
       pf_vocal_count:'500곡+',
       sub_solo:'INST 제외 3트랙, 4분 기준',
       sub_duet:'INST 제외 인당 3트랙, 4분 기준',
-      sub_choir:'인당 3트랙, 4분 기준 / 파트별 트랙 분리 시 작업이 더욱 원활합니다',
+      sub_choir:'인당 3트랙, 4분 기준 / 파트별 트랙 분리 권장',
       sub_multi_np:'~4분, ~악기 20트랙 기준',
       sub_multi_com:'수익창출, 앨범 발매 등 / ~4분, ~20트랙 기준',
       sub_edit:'원음 1트랙 기준 (비상업)',
@@ -1194,6 +1349,23 @@
       sub_stem:'믹스된 소스별 스템 파일 기준 (Drum / Bass / Guitar / Piano / Synth / Vocal / Etc...)',
       // 진행순서 01 수정
       step1_d1:'하단의 연락처(이메일 / 카카오 오픈채팅 / 디스코드)로 문의 후 파일을 보내주세요.',
+      // 신청 양식
+      nav_request:'신청 양식',
+      eyebrow_request:'REQUEST FORM', title_request:'신청 양식',
+      req_form_label:'COPY & SEND',
+      req_form_desc:'아래 양식을 복사하여 연락처로 보내주세요. 무기재 항목은 비워두셔도 됩니다.',
+      req_song_label:'곡 제목', req_song_ph:'—',
+      req_type_label:'신청 타입 / 인원 수', req_type_ph:'예) 솔로 Vocal Mix / 1인',
+      req_rush_label:'빠른 마감', req_rush_ph:'예) 1주일 이내 / 해당 없음',
+      req_addon_label:'인공화음 등 옵션 추가 여부', req_addon_ph:'예) 인공화음 필요 / 없음',
+      req_deadline_label:'필요한 마감일', req_deadline_ph:'예) 2025년 3월 15일',
+      req_channel_label:'활동명 / 투고되는 채널', req_channel_ph:'예) @username / YouTube',
+      req_ref_eyebrow:'REFERENCE',
+      req_reflink_label:'레퍼런스 곡 링크', req_reflink_ph:'예) https://youtu.be/xxxxxx',
+      req_vibe_label:'원하시는 분위기', req_vibe_ph:'예) 따뜻하고 잔잔한 느낌, 깔끔한 팝 믹스 등',
+      req_etc_label:'기타 요청사항', req_etc_ph:'—',
+      req_optional:'(무기재 가능)',
+      req_copy_btn:'양식 복사하기',
     },
 
     en: {
@@ -1221,7 +1393,7 @@
       step1_d3:'Other vocal formats are accepted, but MR / INST must be sent in stereo.',
       step1_d4:'If you have a reference track, feel free to include it — it helps align with your vision.',
       step2_d1:'Turnaround: <strong>3 days – 2 weeks</strong> for solo/duet, <strong>1–3 weeks</strong> for choir.',
-      step2_d2:'If you have a specific deadline, please let us know in advance.',
+      step2_d2:'If you have a specific deadline, please let me know in advance.',
       step3_d1:'Production proceeds in order: <strong>Editing → Mixing → Mastering</strong>.',
       step3_d2:'If you\'d like to approve an intermediate stage, please request it before we begin.',
       step4_d1:'Mix revisions are provided at <strong>no additional cost</strong> until you are fully satisfied.',
@@ -1245,13 +1417,14 @@
       master_note3:'For multi-song projects, overall balance, tone, and loudness are unified across all tracks.',
       addon_th1:'Option', addon_th2:'Additional Fee', addon_th3:'Notes',
       addon_harmony:'Artificial Harmony Creation',
+      addon_chop:'Vocal Chopping / Special Effects',
       addon_rush1:'Rush — Within 1 Week', addon_rush2:'Rush — Within 3 Days', addon_rush3:'Same-Day (Within 24 Hours)',
       notice1:'Turnaround is <strong>3 days – 2 weeks</strong> (solo/duet) or <strong>1–3 weeks</strong> (choir). Most orders are delivered earlier. If issues arise, you will be notified in advance and a full refund will be issued.',
       notice2:'The stated turnaround begins from file submission and payment, and does not include time spent on revisions.',
       notice3:'Final quality may vary depending on the quality of the recorded source material.',
       notice4_title:'Refund Policy',
       refund_before:'Before start — 100% refund', refund_after:'After start — 60% refund', refund_done:'After delivery — No refund',
-      notice5:'Rush and same-day orders require a separate request. Please confirm availability before submitting.',
+      notice5:'Rush and same-day orders require a separate request. Please confirm availability before placing an order.',
       // prices (USD)
       ptag_solo:'$35<span></span>', ptag_duet:'$70<span></span>', ptag_choir:'$35<span>/person</span>',
       ptag_multi_np:'$105<span>~</span>', ptag_multi_com:'$205<span>~</span>',
@@ -1268,6 +1441,7 @@
       chip_2trk_com:'Commercial $40/track',
       chip_stem_desc:'Allows finer control over each stem\'s balance and tone compared to 2TRK (inquire)',
       addon_harmony_price:'+$7 / track',
+      addon_chop_price:'+$14 / track',
       addon_rush1_price:'+$14/person', addon_rush2_price:'+$20/person', addon_rush3_price:'+$35/person',
       addon_rush1_note:'Choir available (confirm first)', addon_rush2_note:'Choir available depending on scope',
       addon_rush3_note:'Availability must be confirmed in advance',
@@ -1283,6 +1457,23 @@
       sub_stem:'Stem files by source (Drum / Bass / Guitar / Piano / Synth / Vocal / Etc...)',
       // step 01 updated
       step1_d1:'Please reach out via the contact methods below (Email / KakaoTalk Open Chat / Discord) and send your files.',
+      // request form
+      nav_request:'Request Form',
+      eyebrow_request:'REQUEST FORM', title_request:'Request Form',
+      req_form_label:'COPY & SEND',
+      req_form_desc:'Copy the form below and send it via any contact method. Optional fields can be left blank.',
+      req_song_label:'Song Title', req_song_ph:'—',
+      req_type_label:'Request Type / Number of People', req_type_ph:'e.g. Solo Vocal Mix / 1 person',
+      req_rush_label:'Rush Deadline', req_rush_ph:'e.g. Within 1 week / Not needed',
+      req_addon_label:'Add-ons (e.g. Artificial Harmony)', req_addon_ph:'e.g. Artificial harmony needed / None',
+      req_deadline_label:'Desired Deadline', req_deadline_ph:'e.g. March 15, 2025',
+      req_channel_label:'Artist Name / Upload Channel', req_channel_ph:'e.g. @username / YouTube',
+      req_ref_eyebrow:'REFERENCE',
+      req_reflink_label:'Reference Track Link', req_reflink_ph:'e.g. https://youtu.be/xxxxxx',
+      req_vibe_label:'Desired Vibe / Mood', req_vibe_ph:'e.g. Warm and calm, clean pop mix, etc.',
+      req_etc_label:'Additional Requests', req_etc_ph:'—',
+      req_optional:'(optional)',
+      req_copy_btn:'Copy Form',
     },
 
     ja: {
@@ -1334,6 +1525,7 @@
       master_note3:'複数曲をまとめてご依頼の場合、全体のバランス・トーン・音圧を統一して仕上げます。',
       addon_th1:'オプション', addon_th2:'追加料金', addon_th3:'備考',
       addon_harmony:'人工ハーモニー制作',
+      addon_chop:'ボーカルチョッピング / 特殊効果',
       addon_rush1:'特急 — 1週間以内', addon_rush2:'特急 — 3日以内', addon_rush3:'当日（24時間以内）',
       notice1:'作業期間はソロ・デュエット <strong>3日〜最大2週間</strong>、合唱 <strong>1〜最大3週間</strong> です。ほとんどの場合、記載より早く納品します。対応が難しい場合は事前にご連絡し、全額返金いたします。',
       notice2:'上記の期間はフィードバック期間を除き、ファイル送付・入金日を起点として算定します。フィードバックによる追加所要時間は含まれません。',
@@ -1357,6 +1549,7 @@
       chip_2trk_com:'商業 ¥6,500/曲',
       chip_stem_desc:'2TRK Masteringより各パートのバランスとサウンドをより細かく調整可能（要相談）',
       addon_harmony_price:'+¥1,100 / トラック',
+      addon_chop_price:'+¥2,200 / トラック',
       addon_rush1_price:'1人 +¥2,200', addon_rush2_price:'1人 +¥3,300', addon_rush3_price:'1人 +¥5,400',
       addon_rush1_note:'合唱も対応可（要事前確認）', addon_rush2_note:'規模により合唱可（要事前確認）',
       addon_rush3_note:'対応可否の事前確認必須',
@@ -1371,7 +1564,24 @@
       sub_2trk:'Mix完了済みStereo音源基準',
       sub_stem:'ソース別ステムファイル基準 (Drum / Bass / Guitar / Piano / Synth / Vocal / Etc...)',
       // ステップ01 更新
-      step1_d1:'下記の連絡先（メール / カカオトークオープンチャット / Discord）よりお問い合わせの上、ファイルをお送りください.',
+      step1_d1:'下記の連絡先（メール / カカオトークオープンチャット / Discord）よりお問い合わせの上、ファイルをお送りください。',
+      // 依頼フォーム
+      nav_request:'依頼フォーム',
+      eyebrow_request:'REQUEST FORM', title_request:'依頼フォーム',
+      req_form_label:'COPY & SEND',
+      req_form_desc:'下記のフォームをコピーして、連絡先よりお送りください。任意項目は空白のままで構いません。',
+      req_song_label:'曲名', req_song_ph:'—',
+      req_type_label:'依頼タイプ / 人数', req_type_ph:'例) ソロ Vocal Mix / 1名',
+      req_rush_label:'特急オプション', req_rush_ph:'例) 1週間以内 / 不要',
+      req_addon_label:'人工ハーモニー等オプション追加', req_addon_ph:'例) 人工ハーモニー必要 / なし',
+      req_deadline_label:'希望納期', req_deadline_ph:'例) 2025年3月15日',
+      req_channel_label:'活動名 / 投稿チャンネル', req_channel_ph:'例) @username / YouTube',
+      req_ref_eyebrow:'REFERENCE',
+      req_reflink_label:'リファレンス曲リンク', req_reflink_ph:'例) https://youtu.be/xxxxxx',
+      req_vibe_label:'希望するイメージ・雰囲気', req_vibe_ph:'例) 温かくて穏やかな雰囲気、クリーンなポップミックス 等',
+      req_etc_label:'その他ご要望', req_etc_ph:'—',
+      req_optional:'(任意)',
+      req_copy_btn:'フォームをコピー',
     }
   };
   // 이메일 — 분리 조합 방식
@@ -1384,6 +1594,34 @@
     if (tx) tx.textContent = u + '@' + d;
   })();
 
+  document.addEventListener('DOMContentLoaded', function() { setLang('ko'); });
+
+  function copyRequestForm(btn) {
+    const lang = document.documentElement.lang || 'ko';
+    const t = i18n[lang === 'ja' ? 'ja' : lang === 'en' ? 'en' : 'ko'];
+    const opt = t.req_optional || '';
+    const lines = [
+      `${t.req_song_label} :`,
+      `${t.req_type_label} :`,
+      `${t.req_rush_label} :`,
+      `${t.req_addon_label} :`,
+      `${t.req_deadline_label} ${opt} :`,
+      `${t.req_channel_label} :`,
+      ``,
+      `* ${t.req_reflink_label} ${opt} :`,
+      `* ${t.req_vibe_label} ${opt} :`,
+      `${t.req_etc_label} ${opt} :`,
+    ];
+    const text = lines.join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const span = btn.querySelector('span') || btn;
+      const original = span.textContent;
+      span.textContent = lang === 'ja' ? 'コピーしました ✓' : lang === 'en' ? 'Copied ✓' : '복사 완료 ✓';
+      btn.classList.add('copied');
+      setTimeout(() => { span.textContent = original; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
   function setLang(lang) {
     const t = i18n[lang];
     if (!t) return;
@@ -1391,9 +1629,6 @@
       const key = el.getAttribute('data-i18n');
       if (t[key] !== undefined) el.innerHTML = t[key];
     });
-    document.quer
-
-    
     document.querySelectorAll('.lang-btn').forEach(b => {
       b.classList.toggle('active', b.textContent.trim().toLowerCase().replace('jp','ja') === lang);
     });
